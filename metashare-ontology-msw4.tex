@@ -1,5 +1,6 @@
 \documentclass{llncs}
-%
+\usepackage{color}
+
 \begin{document}
 
 \title{Metashare as an ontology for the interoperability of linguistic datasets}
@@ -45,7 +46,19 @@
 (e.g., why do RDF and OWL for an already defined vocabulary?) 
 \subsection{Formal modelling and mapping issues [MV, JPM, PL]}
 \subsection{Interface with DCAT and other vocabularies [JPM]}
+
 \subsection{Licensing module [VRD, PL]}
+\textcolor{red}{Victor: I suggest the following structure:}
+
+FIRST: We describe first the Metashare schema, whose licensing information is described in an independent XML Schema file, available on git \footnote{\url{https://github.com/metashare/META-SHARE/blob/master/misc/schema/v3.0/META-SHARE-LicenseMetadata.xsd}}. 
+
+SECOND: We then describe Marta's effort, and the META-SHARE ontology which is also publicly available\footnote{\url{https://raw.githubusercontent.com/martavillegas/metadata/master/MetaShare.ttl}}.
+
+THIRD: We discuss on the needs that motivated the evolution from the previous model. 
+
+FOURTH: We list the changes that we have introduced.
+
+
 \section{META-SHARE in LingHub}
 \subsection{LIXR mapping methodology [JPM]}
 \subsection{Harmonizing MetaShare with other metadata sources [JPM]}
