@@ -129,6 +129,30 @@ Beyond this, we made the following extensions to our mapping strategy:
 \subsection{Interface with DCAT and other vocabularies [JPM]}
 \label{sec:dcat}
 
+The META-SHARE model can be considered broadly similar to DCAT in that there are
+classes that are nearly an exact match to ones in DCAT for three out of four
+cases. DCAT's \emph{dataset} corresponds nearly exactly to the \emph{resource
+info} tag and similarly, \emph{distributions} are similar to \emph{distribution
+info} classes and \emph{catalog record} is similar to \emph{metadata info}. The
+fourth main class, \emph{catalog} covers a level not modelled by META-SHARE. 
+
+DCAT uses Dublin Core properties for many parts of the metadata, and often these
+properties are in fact deeply nested into the description. For example, language
+is found in several places deeply nested under six
+tags~\footnote{{\tt resourceInfo} $>$ {\tt resourceComponentType} $>$ {\tt
+    corpus}* $>$ {\tt corpusMediaType} $>$ {\tt corpusVideoInfo} $>$ {\tt
+languageInfo} (* multiple tags also lead to the language information)}.
+Similarly, it also the case that some Dublin Core properties are not directly
+specified in the META-SHARE model, but can be inferred from related properties,
+e.g., Dublin Core's `contributor' follows from people indicated as `annotators',
+`evaluators', `recorders' or `validators'. Similarly, several DCAT specific-properties, such as `download URL', are nearly
+exactly equivalent to those in Metashare but occur in places that do not fit the
+domain and range of the properties. In this particular case, it was a simple fix
+to move the property to the enclosing {\tt DistributionInfo} class.
+Inevitably, several properties from DCAT did not have equivalences in
+META-SHARE, notably `keyword' and `byte size'. We \textcolor{red}{did something
+about this... I am not sure what though}
+
 \subsection{Licensing module [VRD, PL]}
 \label{sec:licensing}
 \textcolor{red}{Skeleton}
