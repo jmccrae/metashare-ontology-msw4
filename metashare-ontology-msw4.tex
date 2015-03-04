@@ -49,16 +49,46 @@ META-SHARE still covers only a small percentage of language resources and its
 resource-intensive curation methodology means it is unlikely to cover all
 language resources. In contrast, there have been a number of schemes that have
 attempted to collect much more metadata from either existing institutional
-repositories~\cite[CLARIN]{broeder2012data} or by crowd-sourcing this data from
+repositories~\cite[CLARIN]{broeder2010data} or by crowd-sourcing this data from
 researchers~\cite[LRE-Map]{calzolari2012lre}. The former method has lead to
 data in different incompatible formats and the latter to noisy, incomplete and
 duplicative records.
 
 In this paper, we propose a solution to these issues by means of the development
 of a single ontology for the representation of language resources based on the
-original META-SHARE schema
+original META-SHARE schema, but represented using the Web Ontology
+Language~\cite{motik2012owl} and building on an existing standard, namely
+DCAT~\cite{maali2014data}. This is a necessary step to the development of a
+resource called LingHub\footnote{\url{http://linghub.org/}}, which incorporates
+META-SHARE data as well as data from other sources and aims to make it queriable
+by humans and software agents.
 
-\cite{piperidis2012meta}
+We hope that this will improve the representation
+of language resource metadata in two fronts. Firstly, \textit{RDF is super, we
+    can SPARQL it, yada, yada... reasoning... yada, yada, Web technologies are
+the future}. Secondly, we hope that the use of this ontology will enable the
+representation of metadata in a manner that allows existing resources to adopt a
+common core vocabulary, while still being able to represent specific extensions
+to their existing model and we evaluate this hypothesis by reference to the
+CLARIN and LRE-Map data models.
+
+As an ancillary contribution of this paper, we also describe our experience in
+technically converting the META-SHARE schema and data to RDF. This was unusually
+complex as the META-SHARE schema is very complex and as such we needed to
+develop a new tool, we call the Lightweight Invertible XML to RDF Mapping
+Language (LIXR), and we demonstrate quantitatively how this ameliorated the
+process of conversion, and thus as a result proved to be a tool that may
+significantly help in future conversions from XML.
+
+The rest of this paper is structured as follows: In section
+\ref{sec:relatedwork} we will describe the related work in the fields of
+language resource metadata and metadata harmonization. The development of the
+META-SHARE ontology is described in section \ref{sec:ontology} and then in
+section \ref{sec:linghub} we describe how the data was converted for use in the
+LingHub portal and how the ontology was used for other data sources in that
+resource. Finally, in section \ref{sec:discussion} we consider the broader
+impact of this ontology as a tool for computational linguists and as a method to
+realize an architecture of (linked) data-aware services.
 
 \section{Related Work}
 \label{sec:relatedwork}
@@ -178,7 +208,9 @@ object Metashare extends eu.liderproject.lixr.Model {
   )
 
   msxml.identificationInfo --> (
-    dc.title > (content(msxml.resourceName) @@ msxml.resourceName.att("lang"))
+    forall(msxml.resourceName)(
+        dc.title > (content @@ att("lang"))
+    )
   )
 }
 \end{verbatim}}
@@ -250,6 +282,7 @@ Infrastructure~\cite[CMDI]{broeder2012cmdi}. These metadata schemes are
 extremely diverse as shown in table \ref{tab:clarin-types}.
 
 \begin{table}
+    \begin{center}
     \begin{tabular}{l|lc}
         Component Root Tag & Institutes & Frequency \\
         \hline
@@ -264,6 +297,7 @@ extremely diverse as shown in table \ref{tab:clarin-types}.
         Source             & 1 (MI)     &  16,519   \\
         teiHeader          & 2 (BBAW, Copenhagen) &  15,998   \\
     \end{tabular}
+    \end{center}
     \caption{\label{tab:clarin-types}The top 10 most frequent component types in
     CLARIN and the institutes that use them. Abbreviations: MI=Meertens Institute (KNAW), 
     MPI=Max Planck Insitute (Nijmegen), BeG=Netherlands Institute for Sound and Vision,
