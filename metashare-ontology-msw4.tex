@@ -18,7 +18,8 @@
 \authorrunning{Cimiano et al.} % abbreviated author list (for running head)
 %
 %
-\institute{Cognitive Interaction Technology, Excellence Cluster, Bielefeld University, Inspiration 1, D-33619 Germany, \\
+\institute{Cognitive Interaction Technology, Excellence Cluster, Bielefeld
+    University, Inspiration 1, D-33619 Bielefeld, Germany, \\
     \email{\{cimiano, jmccrae\}@cit-ec.uni-bielefeld.de}
 \and
     Ontology Engineering Group, Universidad Polit\'ecnica de Madrid, Boadilla del Monte, Madrid, Spain \\
@@ -37,18 +38,67 @@
 \end{abstract}
 
 \section{Introduction}
+\label{sec:introduction}
+
+META-SHARE~\cite{piperidis2012meta} is a subproject of META-NET aiming to create high-quality metadata
+for a large number of langauge resources and make them available in a structured
+form. Up until now the main methodology that META-SHARE has used to make data
+available is by means of XML Schema Definitions (XSD) and XML description of
+individual language resources conforming to these definitions. However,
+META-SHARE still covers only a small percentage of language resources and its
+resource-intensive curation methodology means it is unlikely to cover all
+language resources. In contrast, there have been a number of schemes that have
+attempted to collect much more metadata from either existing institutional
+repositories~\cite[CLARIN]{broeder2012data} or by crowd-sourcing this data from
+researchers~\cite[LRE-Map]{calzolari2012lre}. The former method has lead to
+data in different incompatible formats and the latter to noisy, incomplete and
+duplicative records.
+
+In this paper, we propose a solution to these issues by means of the development
+of a single ontology for the representation of language resources based on the
+original META-SHARE schema
 
 \cite{piperidis2012meta}
 
 \section{Related Work}
+\label{sec:relatedwork}
+
 \section{The META-SHARE Ontology}
+\label{sec:ontology}
+
 \subsection{Original MS XSD schema [PL]}
+\label{sec:xsd}
+
 \subsection{Purpose of the ontology [MV,JG,JPM]}
+\label{sec:purpose}
 (e.g., why do RDF and OWL for an already defined vocabulary?) 
 \subsection{Formal modelling and mapping issues [MV, JPM, PL]}
+
+When mapping an XML scheme to RDF there are naturally differences that must be
+accounted for, which generic mapping methodologies cannot accommodate without
+tending to a high degree of verbosity. The basic mapping strategy is ... [MV]. 
+
+Beyond this, we made the following extensions to our mapping strategy:
+
+\begin{itemize}
+    \item We shorten some names such as ConformanceToBestStandardsAndPractices
+        \textcolor{red}{JPM: Perhaps we introduce sameAs links to handle this}
+    \item Developed novel classes based on existing values, e.g.,
+        $\mathrm{Corpus} \equiv \exists \mathrm{resourceType}.\mathrm{corpus}$
+    \item Removing unnecessary properties such as {\tt versionInfo}.
+    \item Generalized elements such as {\tt userNature}, {\tt
+        notAvailableThroughMetashare}
+    \item Grouping similar elements under novel superclasses, e.g., {\tt
+        DiscourseAnnotation}, {\tt genre}
+    \item Extending existing classes with new values and including new
+        properties (see section \ref{sec:licensing}
+\end{itemize}
+
 \subsection{Interface with DCAT and other vocabularies [JPM]}
+\label{sec:dcat}
 
 \subsection{Licensing module [VRD, PL]}
+\label{sec:licensing}
 \textcolor{red}{Skeleton}
 
 We describe first the Metashare schema, whose licensing information is described in an independent XML Schema file, available on git \footnote{\url{https://github.com/metashare/META-SHARE/blob/master/misc/schema/v3.0/META-SHARE-LicenseMetadata.xsd}}. 
@@ -66,8 +116,9 @@ And going beyond ODRL: License Templates as an easy entry points for Semantic We
 Example of license template, example of license. Directly in TTL. Maybe introducing a figure depecting what is metadata for resource/distrubiont/license? 
 
 \section{META-SHARE in LingHub}
+\label{sec:linghub}
 
-LingHub is a large resource containing information about a wide range of
+LingHub~\footnote{\url{http://linghub.org}} is a large resource containing information about a wide range of
 language resources, but unlike META-SHARE it does not directly collect this
 information, but instead harmonizes the metadata from a wide range of sources.
 In this section, we will first describe how the original META-SHARE data was
@@ -76,7 +127,8 @@ described, was achieved. Furthermore, we will then consider how we have used the
 META-SHARE vocabulary as a base vocabulary to align terms from other resources
 included in LingHub.
 
-\subsection{LIXR mapping methodology [JPM]}
+\subsection{Mapping META-SHARE to RDF [JPM]}
+\label{sec:conversion}
 
 When translating XML documents into RDF, one of the most common approaches is
 based on Extensible Stylesheet Language Transformations
@@ -126,7 +178,7 @@ object Metashare extends eu.liderproject.lixr.Model {
   )
 
   msxml.identificationInfo --> (
-    dc.title > content(msxml.resourceName) @@ msxml.resourceName.att("lang")
+    dc.title > (content(msxml.resourceName) @@ msxml.resourceName.att("lang"))
   )
 }
 \end{verbatim}}
@@ -159,12 +211,14 @@ attribute {\tt lang}.
     \end{tabular}
 \end{center}
     \caption{\label{tab:locs}Comparison of XML to RDF mapping implementations,
-    by number of tags in XML schema, and non-empty lines of code (LoC)}
+    by number of tags in XML schema, and non-trivial lines of code (LoC)}
 \end{table}
 
 To evaluate the effectiveness of our approach we compared directly with two other
 XML to RDF transformations, we had carried out in this project, and
-reimplemented them using the LIXR language. In table \ref{tab:locs}, we see the
+reimplemented them using the LIXR language. In particular these were the TBX
+model~\cite{iso30042} as well as the OLCA-DMCI profile of the CLARIN
+metadata~\footnote{\url{http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p\_1288172614026/xsd}}. In table \ref{tab:locs}, we see the
 effort to implement these using LIXR is approximately half of using XSLT and
 about ten times less than writing a converter from scratch. 
 
@@ -181,11 +235,52 @@ other advantages of the LIXR approach, due to its declarative declaration
         ontology described in this paper
 \end{itemize}
 
-\subsection{Harmonizing MetaShare with other metadata sources [JPM]}
+\subsection{Harmonizing other resources with META-SHARE [JPM]}
+\label{sec:harmonization}
+
+LingHub brings resources from a wide-range of sources and while we can use
+standards such as DCAT and Dublin Core to guarantee a common representation of the basic
+Metadata of a resource, there does not a standard for the represenation of
+metadata specific to linguistics. For that reason, we use the META-SHARE model
+as a standard for other resources to use in LingHub. In particular, we will
+focus on the application of META-SHARE as a model to harmonize CLARIN data. The
+CLARIN repository describes its resources using a small common set of metadata
+and a larger description defined by the Component Metadata
+Infrastructure~\cite[CMDI]{broeder2012cmdi}. These metadata schemes are
+extremely diverse as shown in table \ref{tab:clarin-types}.
+
+\begin{table}
+    \begin{tabular}{l|lc}
+        Component Root Tag & Institutes & Frequency \\
+        \hline
+        Song               & 1 (MI)     & 155,403   \\
+        Session            & 1 (MPI)    & 128,673   \\
+        OLAC-DcmiTerms     & 39         &  95,370   \\
+        mods               & 1 (Utrecht)&  64,632   \\
+        DcmiTerms          & 2 (BeG,HI) &  46,160   \\
+        SongScan           & 1 (MI)     &  28,448   \\
+        media-session-profile  & 1 (Munich) &  22,405   \\
+        SourceScan         & 1 (MI)     &  21,256   \\
+        Source             & 1 (MI)     &  16,519   \\
+        teiHeader          & 2 (BBAW, Copenhagen) &  15,998   \\
+    \end{tabular}
+    \caption{\label{tab:clarin-types}The top 10 most frequent component types in
+    CLARIN and the institutes that use them. Abbreviations: MI=Meertens Institute (KNAW), 
+    MPI=Max Planck Insitute (Nijmegen), BeG=Netherlands Institute for Sound and Vision,
+HI=Huygens Institute (KNAW), BBAW=Berlin-Brandenburg Academy of Sciences}
+\end{table}
+
 \section{Discussion}
+\label{sec:discussion}
+
 \subsection{Applications of the MetaShare model (beyond LingHub) [MV]}
-\subsection{5.2 Challenges and future outlooks [PC]}
+\label{sec:applications}
+
+\subsection{Challenges and future outlooks [PC]}
+\label{sec:challenges}
+
 \section{Conclusion}
+\label{sec:conclusion}
 
 \bibliographystyle{splncs03}
 \bibliography{metashare-ontology-msw4}
