@@ -108,7 +108,52 @@ Representation of CLARIN metadata as RDF was proposed\cite{durco2014clarin}.
 
 When mapping an XML scheme to RDF there are naturally differences that must be
 accounted for, which generic mapping methodologies cannot accommodate without
-tending to a high degree of verbosity. The basic mapping strategy is ... [MV]. 
+tending to a high degree of verbosity. The META-SHARE metadata model is formalised in a XSD schema that 'transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
+
+In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements whereas \emph{components} are formalized as complex-type elements. When mapping the XSD schema to RDF, \emph{elements} can be naturally understood as properties (e.g. name, gender, etc.). \emph{Components} (i.e. complex-type elements), however,  deserve a careful analysis. General mapping rules from XSD to RDF stablish that a local element with complex type translates into an object property and a Class. An insight analysis of the META-SHARE schema showed that the straightforward application of such a principle may derive into unnecessary verbose graphs. 
+
+META-SHARE distinguishes between three kinds of \emph{components}, namely: 'special status components', 'linked components' and 'bare components'. The former include concepts such as person and document and they can be attached to various \emph{components} performing different roles (i.e. creator, validator, documentation, etc.). 'Linked components' can be understood as relations between \emph{components} and include concepts such as validationReport or validator, among many others. Finally, 'bare components' are used to group together semantically coherent information (i.e. metadataInfo, validationInfo etc.). In the XSD schema, 'special status components' are formalised as complex types whereas 'linked components' are complex elements. Thus, when applying the conversion rules, the ‘special status components’ become Classes and the ‘linked components’ become object properties which correctly captures the semantics behind. For 'bare components' things are more complex as they are formalised as both complex elements and complex types. This means that the general conversion rule will produce an object property and the corresponding Class which, in most cases, may be unnecessary. For example: in the META-SHARE schema, the resourceInfo node contains a number of elements which organise information into coherent sets~\footnote{We use XPath expressions. Number in brackets shows node’s cardinality.}: 
+
+{\footnotesize
+\begin{verbatim}
+resourceInfo/identificationInfo(1)/...
+resourceInfo/distributionInfo(1)/... 
+resourceInfo/contactPerson(n)/...
+resourceInfo/metadataInfo(1)/... 
+resourceInfo/versionInfo(1)/... 
+resourceInfo/validationInfo(n)/...
+resourceInfo/usageInfo(1)/...
+resourceInfo/resourceDocumentationInfo(1)/...
+resourceInfo/resourceCreationInfo(1)/...
+resourceInfo/relationInfo(1)/...
+resourceInfo/resourceComponentType(1)/...
+\end{verbatim}}
+
+
+For elements such as the identificationInfo above, the application of the rule will produce an unnecessary node. Following~\cite{Villegas2014}, we identified potentially removable nodes before the actual RDFication process. The criteria applied take into account the tree structure of the nodes, their cardinality and the XPath axes. Thus, embedded complex elements with cardinalityMax=1 are identified as potentially removable, provided they do not contain text nor attributes. This allows for a simplification of the model, as exemplified below.
+
+{\footnotesize
+\begin{verbatim}
+resource/identificationInfo/resourceName
+resource/identificationInfo/description
+resource/identificationInfo/resourceShortName
+resource/identificationInfo/url
+…
+becomes
+
+resource/resourceName
+resource/description
+resource/resourceShortName
+resource/url
+…
+\end{verbatim}}
+
+
+Note that such a simplification rule can be applied provided this does not derive in sibling conflicts: promoted nodes may cause naming conflicts in their new axe. Thus, a careful checking is needed in order to avoid possible clashes.
+
+Besides the 'bare elements' described so far, a number of potentially superfluous nodes were also identified: namely complex elements with one and only one simple element. This is, for example, what happens with the path validationInfo/validationTool/targetResourceNameURI. In such cases the terminal node can be removed.
+
+
 
 Beyond this, we made the following extensions to our mapping strategy:
 
