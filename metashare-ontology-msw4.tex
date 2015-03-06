@@ -93,7 +93,34 @@ realize an architecture of (linked) data-aware services.
 \section{Related Work [JPM]}
 \label{sec:relatedwork}
 
-Representation of CLARIN metadata as RDF was proposed\cite{durco2014clarin}.
+The task of finding common vocabularies for linguistics is of wide interest and
+several general ontologies for linguistics have been proposed. The General
+Ontology for Linguistic Description~\cite[GOLD]{farrar2002common} was proposed
+as a common model for linguistic data, but its relatively limited scope and low
+coherence has not lead to wide-spread adoption. An alternative approach that has
+been proposed is to use ontologies to create coherence among the resources, in
+particular either by using ontologies to align different linguistic
+schemas~\cite{chiarcos2012ontologies} or by means of agreed
+identifiers~\cite{kemps2008isocat}. For the particular case of linguistic
+metadata there have been a number of attempts to define basic metadata for
+linguistic resources, most notable the Open Language Archive
+Community~\cite[OLAC]{bird2001olac} which built on the Dublin Core metadata. A
+similar initiative, that provided more structured metadata was the ISLE Metadata
+Initiative~\cite[IMDI]{broeder2001imdi}, that provided an import influence on
+the META-SHARE model.
+
+The CLARIN project has played an important role in collecting information about
+metadata and in particular proposed a common system by which metadata from
+disparate sources could be aggregated. This system, called the Component
+Metadata Infrastructure~\cite{broeder2012cmdi}, involved the creation of
+individual data profiles for each resource, by means of a customized XSD scheme.
+As we observe in section \ref{sec:harmonization}, this has in practice merely
+resulted in each contributing institute using its own scheme, with very little
+commonality between different institutes. To improve this situation it was
+recently proposed that the conversion of these CMDI schemas to RDF would enable
+better interoperability~\cite{durco2014clarin}, however it is not clear if this
+project has been realized.\footnote{JPM: I emailed Menzo Windhouwer about this
+and may change this statement based on his response, if any}
 
 \section{The META-SHARE Ontology}
 \label{sec:ontology}
