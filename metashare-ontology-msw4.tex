@@ -39,11 +39,10 @@
     \keywords{keywords}
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction [JPM, JG]}
 \label{sec:introduction}
 
-META-SHARE~\cite{piperidis2012meta} is a subproject of META-NET aiming to create high-quality metadata
-for a large number of language resources and make them available in a structured
+Language technology applications require language resources (LRs) as core components. Aimed at advancing in research and adoption of LRs, several initiatives have recently emerged that index metadata of LRs in digital repositories, thus making them easier to find and reuse by humans. One of the most remarkable of such initiatives is META-SHARE~\cite{piperidis2012meta}, which is a subproject of META-NET aiming to create high-quality metadata for a large number of language resources and make them available in a structured
 form. Up until now the main methodology that META-SHARE has used to make data
 available is by means of XML Schema Definitions (XSD) and XML description of
 individual language resources conforming to these definitions. However,
@@ -60,19 +59,21 @@ In this paper, we propose a solution to these issues by means of the development
 of a single ontology for the representation of language resources based on the
 original META-SHARE schema, but represented using the Web Ontology
 Language~\cite{motik2012owl} and building on an existing standard, namely
-DCAT~\cite{maali2014data}. This is a necessary step to the development of a
+DCAT~\cite{maali2014data}. We take as starting point the work developed by Villegas et at.~\cite{Villegas2014} for the UPF's META-SHARE node, however extending this initial effort to the whole META-SHARE network and incorporating the consensus reached in the context of the W3C Linked Data for Language Technologies (LD4LT) community group\footnote{\url{https://www.w3.org/community/ld4lt}}. 
+This is a necessary step to the development of a
 resource called LingHub\footnote{\url{http://linghub.org/}}, which incorporates
 META-SHARE data as well as data from other sources and aims to make it queriable
 by humans and software agents.
 
 We hope that this will improve the representation
-of language resource metadata in two fronts. Firstly, \textit{RDF is super, we
-    can SPARQL it, yada, yada... reasoning... yada, yada, Web technologies are
-the future}. Secondly, we hope that the use of this ontology will enable the
+of language resource metadata in two fronts. Firstly, the use of Semantic Web techniques (i.e., OWL, RDF) allows to 
+interlink different LRs metadata among themselves and with other external resources on the Web of Data, and enables standardized means of representing and accessing the data (e.g., via SPARQL) thus not relying on domain-specific data formats or proprietary APIs. Secondly, we hope that the use of this ontology will enable the
 representation of metadata in a manner that allows existing resources to adopt a
 common core vocabulary, while still being able to represent specific extensions
 to their existing model and we evaluate this hypothesis by reference to the
 CLARIN and LRE-Map data models.
+
+
 
 As an ancillary contribution of this paper, we also describe our experience in
 technically converting the META-SHARE schema and data to RDF. This was unusually
@@ -416,7 +417,7 @@ HI=Huygens Institute (KNAW), BBAW=Berlin-Brandenburg Academy of Sciences}
 \section{Conclusion [JG]}
 \label{sec:conclusion}
 
-\subsubsection*{Acknowledgments.} This work is supported by the FP7 European project LIDER (610782) and by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R). ANYTHING ELSE?
+\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782) and by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R). ANYTHING ELSE?
 
 
 \bibliographystyle{splncs03}
