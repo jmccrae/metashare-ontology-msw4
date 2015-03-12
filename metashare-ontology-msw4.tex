@@ -1,7 +1,6 @@
 \documentclass{llncs}
 \usepackage{color}
 \usepackage{array}
-
 \begin{document}
 %\title{Metashare as an ontology for the interoperability of linguistic datasets}
 \title{The META-SHARE OWL ontology for the interoperability of linguistic datasets on the Web}
@@ -32,10 +31,9 @@ University Pompeu Fabra, Barcelona, Spain \\
 \begin{abstract}
 \keywords{keywords}
 \end{abstract}
-
-
 \section{Introduction [JPM, JG]}
 \label{sec:introduction}
+\textcolor{red}{PL: decide on notation of elements, components & properties, classes, instances; also on British vs. American spelling}
 Language technology applications require language resources (LRs) as core components. Aimed at advancing research and adoption of LRs, several initiatives have recently emerged that index metadata of LRs in digital repositories, thus making them easier to find and reuse by humans. One of the most remarkable of such initiatives is META-SHARE~\cite{piperidis2012meta} (www.meta-share.eu), an open, integrated, secure and interoperable exchange infrastructure where LRs are documented, uploaded and stored in repositories, catalogued and announced, downloaded, exchanged and discussed, aiming to support a data economy. To this end, a complex and rich in information metadata schema covering the whole lifecycle of a LR from production to usage has been designed, while high quality metadata is sought after as an important step in this endeavour. The schema has been implemented in the form of an XML Schema Definition (XSD) while descriptions of individual LRs conforming to this definition are available as XML \textcolor{red}{records/instances/files}.
 \textcolor{red}{PL: How do we know it's a small percentage? compared to what? Also, the description of CLARIN is not very precise; to check again}
 However, META-SHARE still covers only a \textcolor{red}{small percentage of LRs} and its
@@ -124,10 +122,8 @@ These are described only when the case arises, i.e. when they are linked to a sp
 The META-SHARE schema proposes a set of elements to encode specific descriptive features of each of these entities and relations holding between them, taking as a starting point the LR. Following the CMDI approach, these elements are grouped together into "components", which act as placeholders for well defined categories of information: for instance, the communication component of a person or organisation includes elements on email, postal address, telephone, url etc., while the identification component of a LR brings together elements required to identify it, such as the LR's full and short names, identifiers, a short description of its contents etc. One of the advantages of this mechanism is that it allows for a better structuring of the information, which is crucial for a complex schema like META-SHARE.
 The core of the schema is the resourceInfo component (Figure 1), which subsumes components that combine together to provide the full description of a resource and its lifecycle. For each LR there are:
 \begin{itemize}
-\item \textcolor{red}{PL: instead of enumerating them, maybe I shoud just give a couple of examples}
-administrative components common to all LRs: identificationInfo, distributionInfo, contactPerson, metadataInfo, versionInfo, validationInfo, usageInfo, resourceDocumentationInfo, creationInfo and relationInfo;
-\item \textcolor{red}{PL: introducing resourceType \& mediaType without any explanations; see if it's needed}
-\color[rgb]{0,0,0}\color[rgb]{0,0,0}components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), that cater for the encoding of information relevant to text, audio, video and image parts of corpora, text, audio, video and image parts of lexical/conceptual resources etc.; broadly speaking, these cover information related to contents, formatting, classification etc. which differ depending on the resource/media combination (e.g. genre takes different values for texts and videos, creation processes and tools are described differently for texts and videos etc.) .
+\item \textcolor{red}{PL: instead of enumerating them, maybe I shoud just give a couple of examples} administrative components common to all LRs: identificationInfo, distributionInfo, contactPerson, metadataInfo, versionInfo, validationInfo, usageInfo, resourceDocumentationInfo, creationInfo and relationInfo;
+\item \textcolor{red}{PL: introducing resourceType and mediaType without any explanations; see if it's needed} \color[rgb]{0,0,0}\color[rgb]{0,0,0} components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), that cater for the encoding of information relevant to text, audio, video and image parts of corpora, text, audio, video and image parts of lexical/conceptual resources etc.; broadly speaking, these cover information related to contents, formatting, classification etc. which differ depending on the resource/media combination (e.g. genre takes different values for texts and videos, creation processes and tools are described differently for texts and videos etc.) .
 \end{itemize}
 The META-SHARE schema has been implemented as an XSD (available at {\textcolor{red}{GITHUB}). An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
 \subsection{Purpose of the ontology [MV,JG,JPM]}
@@ -141,16 +137,14 @@ tending to a high degree of verbosity.
 The META-SHARE metadata model is formalised in a XSD schema that 'transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
 In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements whereas \emph{components} are formalized as complex-type elements. When mapping the XSD schema to RDF, \emph{elements} can be naturally understood as properties (e.g. name, gender, etc.). \emph{Components} (i.e. complex-type elements), however, deserve a careful analysis. General mapping rules from XSD to RDF establish that a local element with complex type translates into an object property and a Class. An insight analysis of the META-SHARE schema showed that the straightforward application of such a principle may derive into unnecessary verbose graphs.
 {PL: to better represent what is in the XSD schema, I think the highlighted paragraph could be replaced by the following:
-META-SHARE distinguishes between two kinds of \emph{components}, namely: 
+META-SHARE distinguishes between two kinds of \emph{components}, namely:
 \begin{itemize}
 \item 'special status components': these are used for the representation of three satellite entities (persons, organizations and documents), which can be re-used throughout the model with different roles: validators, annotators, resource documentation, validation reports etc. These are implemented as components(personInfo, organizationInfo, documentInfo) which can be used for elements denoting the roles: validator, annotator, contactPerson, validationReport etc. Moreover, some of these elements are implemented as a choice between two components: annotator can be implented as either a personInfo or an organizationInfo; documentation is used to bring together the choice between a structured documentInfo component (intended to be filled in like a bibliographic record) and a simple element 'documentUnstructured' (allowing for typing in links to or titles of simple readme files){Marta, are these choices the complex elements or linked components? what about contactPerson which is implemented directly as a personInfo?}
 \item 'normal components', which simply group together semantically coherent information (e.g. metadataInfo, validationInfo etc.).
 \end{itemize}
 }
 \textcolor{red}{META-SHARE distinguishes between three kinds of \emph{components}, namely: 'special status components', 'linked components' and 'bare components'. The former include concepts such as person and document and they can be attached to various \emph{components} performing different roles (i.e. creator, validator, documentation, etc.). 'Linked components' can be understood as relations between \emph{components} and include concepts such as validationReport or validator, among many others. Finally, 'bare components' are used to group together semantically coherent information (i.e. metadataInfo, validationInfo etc.).}
-
 In the XSD schema, 'special status components' are formalised as complex types whereas 'linked components' are complex elements. Thus, when applying the conversion rules, the ‘special status components’ become Classes and the ‘linked components’ become object properties which correctly captures the semantics behind. For 'bare components' things are more complex as they are formalised as both complex elements and complex types. This means that the general conversion rule will produce an object property and the corresponding Class which, in most cases, may be unnecessary. For example: in the META-SHARE schema, the resourceInfo node contains a number of elements which organise information into coherent sets~\footnote{We use XPath expressions. Number in brackets shows node’s cardinality.}:
-
 {\footnotesize
 \begin{verbatim}
 resourceInfo/identificationInfo(1)/...
@@ -181,12 +175,9 @@ resource/url
 …
 \end{verbatim}}
 Note that such a simplification rule can be applied provided this does not derive in sibling conflicts: promoted nodes may cause naming conflicts in their new axe. Thus, a careful checking is needed in order to avoid possible clashes.
-
 Interestingly enough, the removal of the superfluous wrapping elements has also led to a change of philosophy to the schema and a need for re-structuring in order to ensure that properties are attached to the most appropriate node, as exemplified and discussed in the \ref{sec:licensing}
-
 Besides the 'bare elements' described so far, other potentially superfluous nodes were also identified: namely complex elements with one and only one simple element. This is, for example, what happens with the path validationInfo/validationTool/targetResourceNameURI. In such cases the terminal node can be removed.
 {PL: I think the targetResourceNameURI is the only such case; correct?}
-
 Beyond this, we made the following extensions to our mapping strategy:
 \begin{itemize}
 \item We decided to rename some of the elements when falling into one of the following categories:
@@ -197,17 +188,16 @@ Beyond this, we made the following extensions to our mapping strategy:
 \textcolor{red}{JPM: Perhaps we introduce sameAs links to handle this; PL: I think we decided against d; pls confirm}
 \item Developed novel classes based on existing values, e.g.,
 $\mathrm{Corpus} \equiv \exists \mathrm{resourceType}.\mathrm{corpus}$
-\textcolor{red} {PL: IMPORTANT: discuss what we do with resourceComponentType, corpusMediaType, corpusTextInfo etc.; what remains and what is removed; tomorrow...}
+\textcolor{red}{PL: IMPORTANT: discuss what we do with resourceComponentType, corpusMediaType, corpusTextInfo etc.; what remains and what is removed; tomorrow...}
 \item Removing unnecessary properties such as {\tt versionInfo}.
 {PL: I think this is the same as identificationInfo; if yes, removed}
 \item Generalized elements such as {\tt notAvailableThroughMetashare} to {\tt availableThroughOtherDistributor}
-\item Simplified some complex structures, such as membershipInfo  
+\item Simplified some complex structures, such as membershipInfo
 {PL: come back to this tomorrow}
 \item Grouping similar elements under novel superclasses, e.g., {\tt DiscourseAnnotation}, {\tt genre}
 {PL: one of the advantages of the RDF approach; say a bit more}
 \item Extending existing classes with new values and including new properties (see section \ref{sec:licensing}
 \end{itemize}
-
 \subsection{Interface with DCAT and other vocabularies [JPM]}
 \label{sec:dcat}
 The META-SHARE model can be considered broadly similar to DCAT in that there are
@@ -216,15 +206,12 @@ cases. DCAT's \emph{dataset} corresponds nearly exactly to the \emph{resource
 info} tag and similarly, \emph{distributions} are similar to \emph{distribution
 info} classes and \emph{catalog record} is similar to \emph{metadata info}. The
 fourth main class, \emph{catalog} covers a level not modelled by META-SHARE.
-
 DCAT uses Dublin Core properties for many parts of the metadata, and often these
 properties are in fact deeply nested into the description. For example, language
 is found in several places deeply nested under six
 tags~\footnote{{\tt resourceInfo} $>$ {\tt resourceComponentType} $>$ {\tt
 corpus}* $>$ {\tt corpusMediaType} $>$ {\tt corpusVideoInfo} $>$ {\tt}}
 This is in accordance to the META-SHARE view that a language resource may consist of modules with different media types, which have different properties and need to be described in different terms: for instance, a multimedia corpus may have a video module (the moving image part per se), a video module for the dialogues which can be separated from the video, and three text modules for the subtitles, the transcription of the dialogues and the scripts. These modules can have different properties, e.g. the dialogues and the scripts may be in English, but the subtitles can be in French and German (two translations). Thus, language as a property is attached not to the languageResource but to each module. Even after removing the superfluous nodes, language will still be embedded at a deeper level, although not as deep as in the XSD schema.
-
-
 Similarly, it also the case that some Dublin Core properties are not directly
 specified in the META-SHARE model, but can be inferred from related properties,
 e.g., Dublin Core's `contributor' follows from people indicated as `annotators',
@@ -237,16 +224,56 @@ META-SHARE, notably `keyword' and `byte size'. We \textcolor{red}{did something
 about this... I am not sure what though}
 {PL: isn't this in sizeInfo?}
 
+
+
 \subsection{Licensing module [VRD, PL]}
 \label{sec:licensing}
-\textcolor{red}{Skeleton}
-We describe first the Metashare schema, whose licensing information is described in an independent XML Schema file, available on git \footnote{\url{https://github.com/metashare/META-SHARE/blob/master/misc/schema/v3.0/META-SHARE-LicenseMetadata.xsd}}.
-%SECOND: We then describe Marta's effort, and the META-SHARE ontology which is also publicly available\footnote{\url{https://raw.githubusercontent.com/martavillegas/metadata/master/MetaShare.ttl}}.
-We discuss on the needs that motivated the evolution from the previous model. We describe (if not done before) also the precedure and methodology.
-Short introduction on the ODRL vocabulary.
-We describe the most important changes that we have introduced.
+
+One of the most important achievements of META-SHARE has been the formulation of a clear, consise and easy-to-use legal framework for LRs sharing and re-use. As declared in the META-SHARE Charter \footnote{\url{http://http://www.meta-net.eu/meta-share/METASHARE\_Charter.pdf}}, "LRs should be shared and further re-used with the minimum possible transaction costs and efforts and under clear and easy to understand rules". This is of high import since the production of LRs of good quality and quantity, as required for the research and development of Language Technology, is cost-consuming and only their sharing and re-use can render them cost-effective. Any grant of access to LRs should ideally include not only the right to read the relevant content but also to allow transformative uses, dissemination and distribution of such resources and their derivatives, according to the needs and policies of LR owners and users. 
+{Victor, could you add here or where convenient, something about the licensed linked data LLD principles?}
+
+This principle has been shaped in the form of a set of legal documents, guidelines and recommendations supporting LR providers in licensing their LRs. In order to limit fuzziness in the terms and conditions of use of LRs, a range of recommended standard licenses are provided in the META-SHARE model licensing scheme organised on the following axes: open licences are the preferred option (CC licences for data resources and FOSS for tools and services), followed by a set of model (standard) licences built in response to LR providers' requests (META-SHARE Commons and NoRedistribution licences); previous custom and proprietary licences are the last resort only for legacy resources that cannot be licensed otherwise. 
+
+The mechanism for implementing this set of recommendations has been the metadata module on licensing, which is an essential ingredient of the schema. The elements describing rights of use and distribution details are included in the obligatory component distributionInfo and its embedded licenceInfo, i.e. all LRs documented in META-SHARE include obligatorily a description on their conditions of use in a standardised format. The schema contains specific elements for:
+\begin{itemize}
+\item the distribution and use conditions, namely:
+	\begin{enumerate}
+	\item 'availability' (simply to say that an LR is available with or without restrictions or under negotiation), 
+	\item 'licence', which takes a value from a list of the recommended standard licences and  additional values for proprietary and non-standard (legacy) licences
+	\item elements describing in a abbreviated human-oriented way terms and conditions of use (mainly 'restrictionsOfUse' which comprises a list of the most frequent terms associated with LRs, eg. noDerivatives, nonCommercialUse, attribution etc.; and 'userNature' which is used for the user restriction axis, i.e. academic vs. commercial)
+	\item elements for the more detailed information required by specific conditions of use, i.e. 'fee' for LRs offered with a monetary compensation, 'attributionText' for those requiring attribution, and the component  'membershipInfo' which is used for LRs offered with different prices for members of specific groups
+	\end{enumerate}
+\item rights holders ('iprHolder', 'distributionRightsHolder' and 'licensor')
+\item the medium and url (if available over the internet) from which the LR is distributed ('distributionAccessMedium', 'downloadLocation', 'executionLocation')
+\item the dates that an LR will be made (or stop to be) available ('availabilityEndDate' and 'availabilityStartDate').
+\end{itemize}
+Optionality and cardinality are specified for each element/component. Thus, 'licence' is obligatory for all available LRs and the component 'licenceInfo' can be repeated to cater for LRs that are offered with dual licensing, e.g. for commercial purposes with a fee and for research for free; in fact, the 'licenceInfo' groups together elements that may differ when licensed under different licences, e.g. a form of the LR accessible via a web interface with limited results for free for research and a downloadable form offered for commercial purposes with a fee.
+
+In the conversion of META-SHARE from XSD to OWL/RDF, using the simplification rule described in \ref{sec:purpose}, the distributionInfo seems at first redundant. Its removal, however, poses problems as it attaches the licence property on the languageResource node and makes it more difficult to describe the multiple licensing feature. This, together with the \textcolor{red}{idea - a better word for this?} of using ODRL to represent the conditions of use, prompted us to a manual inspection of the licensing module.
+
+\textcolor{red}{Short introduction on the ODRL vocabulary. [VRD]}
+
+The main decision we took as regards the licensing module, was the re-structuring of the elements as stemming from the removal of the notion of the wrapping elements. Thus, instead of using the components as a way of grouping together information, we decided to replace them with classes that can be used to better represent the licensing ecosystem of LRs, and to re-structure the elements in order to attach them as properties to the appropriate nodes. As a result, we recognize the following three entities/classes, each associated with different properties as appropriate:
+\begin{itemize}
+\item LanguageResource, with properties such as iprHolder, distributionRightsHolder;
+\item Distribution, taken from the dcat vocabulary where it "represents an accessible form of a dataset as for example a downloadable file, an RSS feed or a web service that provides the data."; this is the entity to which properties for describing licencing, forms and other details of distribution must be attached;
+\item License, which is treated/described/faced/represented? as a model licence, retaining only those properties that can help us generalize over terms and conditions and enriched with concepts from the ODRL vocabulary/ontology. 
+{PL: This needs better phrasing; add here a figure depecting what is metadata for resource/distrubiont/license; not sure how to do this in tex}}
+\end{itemize}
+\textcolor{red}{we need to explain here: model license, and license template with examples} 
+
+\textcolor{red}{PL: Victor, I simply put them here but we need to explain them}
+Other conversions / discussion
+- use of other vocabularies: when similar enough, replaced (e.g. ??); keeping our concepts, when more detailed than dcterms (e.g. licensor, iprHolder) and using skos/rdf sameAs/broader etc. for linking them.
+- RDF representations of standard licences frequently used 
+- what to do with license templates (e.g. CLARIN) and other licences with some conditions described in "restrictionsOfUse"
 And going beyond ODRL: License Templates as an easy entry points for Semantic Web - laymans.
-Example of license template, example of license. Directly in TTL. Maybe introducing a figure depecting what is metadata for resource/distrubiont/license?
+
+
+
+
+
+
 \section{META-SHARE in LingHub}
 \label{sec:linghub}
 LingHub~\footnote{\url{http://linghub.org}} is a large resource containing information about a wide range of
@@ -323,7 +350,7 @@ attribute {\tt lang}.
 \begin{center}
 \begin{tabular}{p{4cm}|cccc}
 Name & Tags & Implementation & LoC & LoC/Tag \\
-\textcolor{red}ine
+\hline
 TBX & 48 & Java & 2,752 & 57.33 \\
 CLARIN (OLAC-DMCI) & 79 & XSLT & 404 & 5.11 \\
 CLARIN (OLAC-DMCI) & 79 & XSLT (Compact Syntax) & 255 & 3.22 \\
@@ -402,7 +429,7 @@ The Catalogue demonstrates the benefits o fthe LOD framework and how LOD can be 
 \label{sec:challenges}
 \section{Conclusion [JG]}
 \label{sec:conclusion}
-\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782) and by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R). ANYTHING ELSE? {PL: ADD CLARIN-EL here for funding!}
+\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R) and by the Greek CLARIN Attiki project "Support and development of Greek partners for the participation in the European Research Infrastructure Consortia in the framework of ESFRI/2006" (MIS 441451). ANYTHING ELSE?
 \bibliographystyle{splncs03}
 \bibliography{metashare-ontology-msw4}
 \end{document}
