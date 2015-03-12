@@ -365,7 +365,24 @@ focus on the application of META-SHARE as a model to harmonize CLARIN data. The
 CLARIN repository describes its resources using a small common set of metadata
 and a larger description defined by the Component Metadata
 Infrastructure~\cite[CMDI]{broeder2012cmdi}. These metadata schemes are
-extremely diverse as shown in table \ref{tab:clarin-types}.
+extremely diverse as shown in table \ref{tab:clarin-types}. We will focus on the 
+top five of these types, where we have also developed mappings using the LIXR 
+model. Two of these schemes are only Dublin Core properties and so do not have 
+specific language resource metadata. The most frequent 'Song' tag focusses on 
+a database of musical recordings, and many of these properties (e.g., `number of
+stanzas') did not correspond to any properties, however the META-SHARE Ontology 
+could be used to describe the language and technical format information (i.e., `audio 
+encoding'). The {\tt Session} tag is in fact the IMDI metadata~\cite{broeder2001imdi}
+and as such corresponds loosely with META-SHARE but highlighted areas where the 
+META-SHARE ontology does not provide sufficient properties, for example in 
+describing the participants in a media recording. The MODS metadata scheme~\cite{todo} was 
+similar in that the META-SHARE ontology provided some properties but was often
+insufficient in the details that were recorded. This highlights the advantage of
+taking an open world, ontological approach as opposed to a fixed schema, in that
+we can easily introduce new properties while still reusing the META-SHARE properties
+where they were available. \textcolor{red}{I doubt I will manage it but I will try
+to include the number of MS props used - JPM}
+
 \begin{table}
 \begin{center}
 \begin{tabular}{l|lc}
@@ -388,6 +405,7 @@ CLARIN and the institutes that use them. Abbreviations: MI=Meertens Institute (K
 MPI=Max Planck Insitute (Nijmegen), BeG=Netherlands Institute for Sound and Vision,
 HI=Huygens Institute (KNAW), BBAW=Berlin-Brandenburg Academy of Sciences}
 \end{table}
+
 \section{Discussion}
 \label{sec:discussion}
 \subsection{Applications of the MetaShare model (beyond LingHub) [MV]}
