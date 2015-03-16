@@ -151,19 +151,36 @@ The core of the schema is the resourceInfo component (Figure
         resource.
     \item Distribution Info: Describing the location of the resource.
     \item Contact Person
-    \item Metadata Info: 
-\item \textcolor{red}{PL: instead of enumerating them, maybe I shoud just give a couple of examples} administrative components common to all LRs: identificationInfo, distributionInfo, contactPerson, metadataInfo, versionInfo, validationInfo, usageInfo, resourceDocumentationInfo, creationInfo and relationInfo;
-\item \textcolor{red}{PL: introducing resourceType and mediaType without any explanations; see if it's needed} \color[rgb]{0,0,0}\color[rgb]{0,0,0} components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), that cater for the encoding of information relevant to text, audio, video and image parts of corpora, text, audio, video and image parts of lexical/conceptual resources etc.; broadly speaking, these cover information related to contents, formatting, classification etc. which differ depending on the resource/media combination (e.g. genre takes different values for texts and videos, creation processes and tools are described differently for texts and videos etc.) .
+    \item Metadata Info: Self description of the metadata.
+    \item Version Info
+    \item Validation Info: Indicating the evaluation of the resource.
+    \item Usage Info: Giving the intended and actual usage of the resource.
+    \item Resource Documentation Info: Giving documentation of the resource.
+    \item Resource Creation Info: Describing the provenance of the resource.
+        \textcolor{red}{JMC: this should probably be mapped to PROV-O}
+    \item Relation Info: Giving related resources.
+    \item Type-specific components that cater for the encoding of information
+        relevant to text, audio, video and image parts of corpora, text, audio,
+        video and image parts of lexical/conceptual resources, including 
+        information related to contents, formatting,
+        classification 
+        %etc. which differ depending on the resource/media
+        %combination (e.g. genre takes different values for texts and videos,
+        %creation processes and tools are described differently for texts and
+        %videos etc.).
+%\item \textcolor{red}{PL: instead of enumerating them, maybe I shoud just give a couple of examples} administrative components common to all LRs: identificationInfo, distributionInfo, contactPerson, metadataInfo, versionInfo, validationInfo, usageInfo, resourceDocumentationInfo, creationInfo and relationInfo;
+%\item \textcolor{red}{PL: introducing resourceType and mediaType without any explanations; see if it's needed} \color[rgb]{0,0,0}\color[rgb]{0,0,0} components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), 
 \end{itemize}
 The META-SHARE schema has been implemented as an XSD (available at {\textcolor{red}{GITHUB}). An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
 \subsection{Purpose of the ontology [MV,JG,JPM]}
 \label{sec:purpose}
 (e.g., why do RDF and OWL for an already defined vocabulary?)
 \subsection{Formal modelling and mapping issues [MV, JPM, PL]}
-When mapping an XML scheme to RDF there are naturally differences that must be
-accounted for, which generic mapping methodologies cannot accommodate without
-tending to a high degree of verbosity.
-{PL: we say this elsewhere also; decide where to put}
+
+%When mapping an XML scheme to RDF there are naturally differences that must be
+%accounted for, which generic mapping methodologies cannot accommodate without
+%tending to a high degree of verbosity.
+%{PL: we say this elsewhere also; decide where to put}
 The META-SHARE metadata model is formalised in a XSD schema that `transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
 In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements whereas \emph{components} are formalized as complex-type elements. When mapping the XSD schema to RDF, \emph{elements} can be naturally understood as properties (e.g. name, gender, etc.). \emph{Components} (i.e. complex-type elements), however, deserve a careful analysis. General mapping rules from XSD to RDF establish that a local element with complex type translates into an object property and a Class. An insight analysis of the META-SHARE schema showed that the straightforward application of such a principle may derive into unnecessary verbose graphs.
 {PL: to better represent what is in the XSD schema, I think the highlighted paragraph could be replaced by the following:
@@ -195,36 +212,45 @@ In the XSD schema, `special status components' are formalised as complex types
 whereas `linked components' are complex elements. Thus, when applying the
 conversion rules, the ‘special status components’ become Classes and the ‘linked
 components’ become object properties which correctly captures the semantics
-behind. For `bare components' things are more complex as they are formalised as both complex elements and complex types. This means that the general conversion rule will produce an object property and the corresponding Class which, in most cases, may be unnecessary. For example: in the META-SHARE schema, the resourceInfo node contains a number of elements which organise information into coherent sets~\footnote{We use XPath expressions. Number in brackets shows node’s cardinality.}:
-{\footnotesize
-\begin{verbatim}
-resourceInfo/identificationInfo(1)/...
-resourceInfo/distributionInfo(1)/...
-resourceInfo/contactPerson(n)/...
-resourceInfo/metadataInfo(1)/...
-resourceInfo/versionInfo(1)/...
-resourceInfo/validationInfo(n)/...
-resourceInfo/usageInfo(1)/...
-resourceInfo/resourceDocumentationInfo(1)/...
-resourceInfo/resourceCreationInfo(1)/...
-resourceInfo/relationInfo(1)/...
-resourceInfo/resourceComponentType(1)/...
-\end{verbatim}}
-For elements such as the identificationInfo above, the application of the rule will produce an unnecessary node. Following~\cite{Villegas2014}, we identified potentially removable nodes before the actual RDFication process. The criteria applied take into account the tree structure of the nodes, their cardinality and the XPath axes. Thus, embedded complex elements with cardinalityMax=1 are identified as potentially removable, provided they do not contain text nor attributes. This allows for a simplification of the model, as exemplified below.
-{\footnotesize
-\begin{verbatim}
-resource/identificationInfo/resourceName
-resource/identificationInfo/description
-resource/identificationInfo/resourceShortName
-resource/identificationInfo/url
-…
-becomes
-resource/resourceName
-resource/description
-resource/resourceShortName
-resource/url
-…
-\end{verbatim}}
+behind. For `bare components' things are more complex as they are formalised as both complex elements and complex types. This means that the general conversion rule will produce an object property and the corresponding Class which, in most cases, may be unnecessary. 
+%For example: in the META-SHARE schema, the resourceInfo node contains a number of elements which organise information into coherent sets~\footnote{We use XPath expressions. Number in brackets shows node’s cardinality.}:
+%{\footnotesize
+%\begin{verbatim}
+%resourceInfo/identificationInfo(1)/...
+%resourceInfo/distributionInfo(1)/...
+%resourceInfo/contactPerson(n)/...
+%resourceInfo/metadataInfo(1)/...
+%resourceInfo/versionInfo(1)/...
+%resourceInfo/validationInfo(n)/...
+%resourceInfo/usageInfo(1)/...
+%resourceInfo/resourceDocumentationInfo(1)/...
+%resourceInfo/resourceCreationInfo(1)/...
+%resourceInfo/relationInfo(1)/...
+%resourceInfo/resourceComponentType(1)/...
+%\end{verbatim}}
+%For elements such as the identificationInfo above, the application of the rule will produce an unnecessary node. 
+Following~\cite{Villegas2014}, we identified potentially removable nodes before
+the actual RDFication process. The criteria applied take into account the tree
+structure of the nodes, their cardinality and the XPath axes. Thus, embedded
+complex elements with cardinalityMax=1 are identified as potentially removable,
+provided they do not contain text nor attributes. This allows for a
+simplification of the model, for example in the chain {\tt
+resourceInfo/identificationInfo/resourceName}, the {\tt identificationInfo}
+property is not needed.
+%{\footnotesize
+%\begin{verbatim}
+%resource/identificationInfo/resourceName
+%resource/identificationInfo/description
+%resource/identificationInfo/resourceShortName
+%resource/identificationInfo/url
+%…
+%becomes
+%resource/resourceName
+%resource/description
+%resource/resourceShortName
+%resource/url
+%…
+%\end{verbatim}}
 Note that such a simplification rule can be applied provided this does not derive in sibling conflicts: promoted nodes may cause naming conflicts in their new axe. Thus, a careful checking is needed in order to avoid possible clashes.
 Interestingly enough, the removal of the superfluous wrapping elements has also led to a change of philosophy to the schema and a need for re-structuring in order to ensure that properties are attached to the most appropriate node, as exemplified and discussed in the \ref{sec:licensing}
 Besides the `bare elements' described so far, other potentially superfluous nodes were also identified: namely complex elements with one and only one simple element. This is, for example, what happens with the path validationInfo/validationTool/targetResourceNameURI. In such cases the terminal node can be removed.
@@ -262,9 +288,14 @@ fourth main class, \emph{catalog} covers a level not modelled by META-SHARE.
 DCAT uses Dublin Core properties for many parts of the metadata, and often these
 properties are in fact deeply nested into the description. For example, language
 is found in several places deeply nested under six
-tags~\footnote{{\tt resourceInfo} $>$ {\tt resourceComponentType} $>$ {\tt
-corpus}* $>$ {\tt corpusMediaType} $>$ {\tt corpusVideoInfo} $>$ {\tt}}
-This is in accordance to the META-SHARE view that a language resource may consist of modules with different media types, which have different properties and need to be described in different terms: for instance, a multimedia corpus may have a video module (the moving image part per se), a video module for the dialogues which can be separated from the video, and three text modules for the subtitles, the transcription of the dialogues and the scripts. These modules can have different properties, e.g. the dialogues and the scripts may be in English, but the subtitles can be in French and German (two translations). Thus, language as a property is attached not to the languageResource but to each module. Even after removing the superfluous nodes, language will still be embedded at a deeper level, although not as deep as in the XSD schema.
+tags\footnote{{\tt resourceInfo} $>$ {\tt resourceComponentType} $>$ {\tt
+corpus}* $>$ {\tt corpusMediaType} $>$ {\tt corpusVideoInfo} $>$ {\tt
+languageInfo}}. In META-SHARE this allows different media types in the resource
+to have different languages ,e.g., the dialogues and the scripts of a video may
+be in English, but the subtitles can be in French and German (two translations).
+We still include this fine-grained metadata but also add the property at the resource level
+to indicate if any part of the resource is in the stated language.
+%This is in accordance to the META-SHARE view that a language resource may consist of modules with different media types, which have different properties and need to be described in different terms: for instance, a multimedia corpus may have a video module (the moving image part per se), a video module for the dialogues which can be separated from the video, and three text modules for the subtitles, the transcription of the dialogues and the scripts. These modules can have different properties, e.g. the dialogues and the scripts may be in English, but the subtitles can be in French and German (two translations). Thus, language as a property is attached not to the languageResource but to each module. Even after removing the superfluous nodes, language will still be embedded at a deeper level, although not as deep as in the XSD schema.
 Similarly, it also the case that some Dublin Core properties are not directly
 specified in the META-SHARE model, but can be inferred from related properties,
 e.g., Dublin Core's `contributor' follows from people indicated as `annotators',
@@ -273,24 +304,26 @@ exactly equivalent to those in Metashare but occur in places that do not fit the
 domain and range of the properties. In this particular case, it was a simple fix
 to move the property to the enclosing {\tt DistributionInfo} class.
 Inevitably, several properties from DCAT did not have equivalences in
-META-SHARE, notably `keyword' and `byte size'. We \textcolor{red}{did something
-about this... I am not sure what though}
-{PL: isn't this in sizeInfo?}
-
-
+META-SHARE, notably `keyword'.
 
 \subsection{Licensing module [VRD, PL]}
 \label{sec:licensing}
 
 One of the most important achievements of META-SHARE has been the formulation of
 a clear, consise and easy-to-use legal framework for LRs sharing and re-use. As
-declared in the META-SHARE Charter
-\footnote{\url{http://http://www.meta-net.eu/meta-share/METASHARE\_Charter.pdf}},
+declared in the META-SHARE Charter\footnote{\url{http://www.meta-net.eu/meta-share/METASHARE\_Charter.pdf}},
 ``LRs should be shared and further re-used with the minimum possible transaction
-costs and efforts and under clear and easy to understand rules''. This is of high import since the production of LRs of good quality and quantity, as required for the research and development of Language Technology, is cost-consuming and only their sharing and re-use can render them cost-effective. Any grant of access to LRs should ideally include not only the right to read the relevant content but also to allow transformative uses, dissemination and distribution of such resources and their derivatives, according to the needs and policies of LR owners and users. 
-{Victor, could you add here or where convenient, something about the licensed linked data LLD principles?}
+costs and efforts and under clear and easy to understand rules''. This is of
+high importance since the production of LRs of good quality and quantity, as required for the research and development of language technology, is cost-consuming and only their sharing and re-use can render them cost-effective. Any grant of access to LRs should ideally include not only the right to read the relevant content but also to allow transformative uses, dissemination and distribution of such resources and their derivatives, according to the needs and policies of LR owners and users. 
+\textcolor{red}{Victor, could you add here or where convenient, something about the licensed linked data LLD principles?}
 
-This principle has been shaped in the form of a set of legal documents, guidelines and recommendations supporting LR providers in licensing their LRs. In order to limit fuzziness in the terms and conditions of use of LRs, a range of recommended standard licenses are provided in the META-SHARE model licensing scheme organised on the following axes: open licences are the preferred option (CC licences for data resources and FOSS for tools and services), followed by a set of model (standard) licences built in response to LR providers' requests (META-SHARE Commons and NoRedistribution licences); previous custom and proprietary licences are the last resort only for legacy resources that cannot be licensed otherwise. 
+This principle has been shaped in the form of a set of legal documents,
+guidelines and recommendations supporting LR providers in licensing their LRs.
+In order to limit fuzziness in the terms and conditions of use of LRs, a range
+of recommended standard licenses are provided in the META-SHARE model licensing
+scheme organised on the following axes: open licences are the preferred option
+(Creative Commons licences for data resources and other Free, open-source
+software licenses for tools and services), followed by a set of model (standard) licences built in response to LR providers' requests (META-SHARE Commons and NoRedistribution licences); previous custom and proprietary licences are the last resort only for legacy resources that cannot be licensed otherwise. 
 
 The mechanism for implementing this set of recommendations has been the metadata module on licensing, which is an essential ingredient of the schema. The elements describing rights of use and distribution details are included in the obligatory component distributionInfo and its embedded licenceInfo, i.e. all LRs documented in META-SHARE include obligatorily a description on their conditions of use in a standardised format. The schema contains specific elements for:
 \begin{itemize}
@@ -320,6 +353,7 @@ commercial purposes with a fee and for research for free; in fact, the `licenceI
 
 In the conversion of META-SHARE from XSD to OWL/RDF, using the simplification rule described in \ref{sec:purpose}, the distributionInfo seems at first redundant. Its removal, however, poses problems as it attaches the licence property on the languageResource node and makes it more difficult to describe the multiple licensing feature. This, together with the \textcolor{red}{idea - a better word for this?} of using ODRL to represent the conditions of use, prompted us to a manual inspection of the licensing module.
 
+\textcolor{red}{JPM: I would remove/reduce the text after this point}
 \textcolor{red}{Short introduction on the ODRL vocabulary. [VRD]}
 
 The main decision we took as regards the licensing module, was the re-structuring of the elements as stemming from the removal of the notion of the wrapping elements. Thus, instead of using the components as a way of grouping together information, we decided to replace them with classes that can be used to better represent the licensing ecosystem of LRs, and to re-structure the elements in order to attach them as properties to the appropriate nodes. As a result, we recognize the following three entities/classes, each associated with different properties as appropriate:
@@ -347,42 +381,34 @@ And going beyond ODRL: License Templates as an easy entry points for Semantic We
 When translating XML documents into RDF, one of the most common approaches is
 based on exploiting Extensible Stylesheet Language Transformations
 (XSLT)~\cite{wustner2002converting,van2008xml,borin2014representing}. However, XSLT has a number of disadvantages
-for this task:
-\begin{itemize}
-\item the set of functions and operators supported by most processors is
-limited.
-\item the ability to declare new functions is limited
-\item it does not support stream processing to allow for processing large files 
-\item XSLT is a one-way transformation language and it is not this possible
-to `round-trip' the conversion, converting from XML to RDF and back
-\item the XSLT syntax is XML-based and is thus very verbose and infelicitous from an atheistic point of view.
-For this reason, many people use alternative
-more compact syntaxes\footnote{Compact XML:
-\url{https://pythonhosted.org/compactxml/}}\footnote{Jade:
-\url{http://jade-lang.com/}}
-\end{itemize}
+for this task, in particular as it has limited extensibility and cannot be
+applied to streaming data or as an invertible transform.
 
-The META-SHARE schema itself is quite complex, consisting of 111 complex types and 207 simp types. 
-Writing a convertor to RDF is thus not a trivial exercise. Instead of writing an
+The META-SHARE schema itself is quite complex, consisting of 111 complex types
+and 207 simple types. 
+Writing a converter to RDF is thus not a trivial exercise. Instead of writing an
 XSL transformation, we opted to follow a different approach by developing a
 \emph{domain-specific language} (DSL) ~\cite{fowler2010domain} that allows us to express the conversion from XML to RDF in a declarative fashion.
-We rely on the LIXR domain-specific language for this. A simple example of a
+This language is called the \textit{Lightweight Invertible XML to RDF Mapping
+Language} (LIXR, pronounced `elixir') and a simple example of a
 LIXR mapping is given below:
 {\footnotesize
 \begin{verbatim}
 object Metashare extends eu.liderproject.lixr.Model {
-val dc = Namespace("http://purl.org/dc/elements/1.1/")
-val ms = Namespace("http://purl.org/ms-lod/MetaShare.ttl#")
-val msxml = Namespace("http://www.ilsp.gr/META-XMLSchema")
-msxml.resourceInfo --> (
-a > ms.ResourceInfo,
-handle(msxml.identificationInfo)
-)
-msxml.identificationInfo --> (
-forall(msxml.resourceName)(
-dc.title > (content @@ att("lang"))
-)
-)
+  val dc = Namespace("http://purl.org/dc/elements/1.1/")
+  val ms = Namespace("http://purl.org/ms-lod/MetaShare.ttl#")
+  val msxml = Namespace("http://www.ilsp.gr/META-XMLSchema")
+
+  msxml.resourceInfo --> (
+    a > ms.ResourceInfo,
+    handle(msxml.identificationInfo)
+  )
+
+  msxml.identificationInfo --> (
+    forall(msxml.resourceName)(
+      dc.title > (content @@ att("lang"))
+    )
+  )
 }
 \end{verbatim}}
 In this example, we first create our model extending the basic LIXR model and
@@ -436,7 +462,7 @@ ontology described in this paper
 \subsection{Harmonizing other resources with META-SHARE [JPM]}
 \label{sec:harmonization}
 
-The LingHub portal indexes metadata from a wide-range of sources. While a basic level of interoperability can be established by used standard vocabularies such as DCAT and Dublin Core, this can only be done by sacrificing completeness and ignoring all metadata particular to language resources. For this reason, we rely the META-SHARE model to represent and harmonize the metadata relating specifically to the domain of linguistics and language resources. As a proof-of-concept, we show how the META-SHARE ontology developed supports the harmonization of CLARIN data. The
+The LingHub portal indexes metadata from a wide-range of sources. While a basic level of interoperability can be established by used standard vocabularies such as DCAT and Dublin Core, this can only be done by sacrificing completeness and ignoring all metadata particular to language resources. For this reason, we rely the META-SHARE model to represent and harmonize the metadata relating specifically to the domain of linguistics and language resources. As a proof-of-concept, we show how the META-SHARE ontology supports the harmonization of CLARIN data. The
 CLARIN repository describes its resources using a small common set of metadata
 and a larger description defined by the Component Metadata
 Infrastructure~\cite[CMDI]{broeder2012cmdi}. These metadata schemes are
@@ -469,7 +495,7 @@ HI=Huygens Institute (KNAW), BBAW=Berlin-Brandenburg Academy of Sciences}
 \label{sec:applications}
 The IULA-UPF CLARIN Competence Centre\footnote{http://www.clarin-es-lab.org/index-en.html} aims to promote and support the use of technology and text analysis tools in the Humanities and Social Sciences research. The centre includes a Catalogue\footnote{http://lod.iula.upf.edu/} with information on language resources and technology.
 The Catalogue is based on the initial LOD version of the META-SHARE model as described in~\cite{Villegas2014} and includes full descriptions for 100 NLP Services and 150 language resources. The original data come from the UPF META-SHARE node\footnote{http://metashare.upf.edu} as XML files compliant with the META-SHARE schema. XML records were converted into RDF and augmented with service descriptions (not included in the UPF META-SHARE node) and relevant documentation (appropriate articles, documentation, sample data and results, illustrative experiments, examples from outstanding projects, illustrative use cases, etc) to encourage potential users to embrace digital tools. Finally, the data was enriched with links, including internal as well as external links.
-The LOD approach, specially the linking, allowed to maximize the information
+The LOD approach, specifically the linking, allowed us to maximize the information
 contained in the original repository and to enrich this by using external
 repositories and datasets. The original data missed many relevant internal
 links. For example: in the source model related concepts such as `Named Entity
@@ -498,7 +524,7 @@ property linking to the DBLP dataset, the system generates a link to the DBLP
 SPARQL end point with the query to get all publications for that
 person\footnote{http://lod.iula.upf.edu/resources/person\_Jorge\_Vivaldi}. `Reference' relations are used in a simpler way: they do not imply retrieving information from an external SPARQL endpoint but simply provide a link to some external relevant resource. Linking to external resources not only fulfils the principles of LOD but provides the user with the possibility to explore beyond the Catalogue itself.
 Finally, the Catalogue makes extensive use of the so called backward relations. For any resource page, the system retrieves all triples in which the resource occurs as object of the relation. The subjects are grouped into Classes and in this way the user gets all resources that have something to do with the current resource organised into classes. For example, in the IULA-UPF page\footnote{http://lod.iula.upf.edu/resources/organization\_UPF-IULA} the backwards relations include instances of person, project, services among many other.
-The Catalogue demonstrates the benefits o fthe LOD framework and how LOD can be easily used as the basis for a web browser application that maximizes information and helps users to navigate throughout the dataset in a comprehensive way.
+The Catalogue demonstrates the benefits of the LOD framework and how LOD can be easily used as the basis for a web browser application that maximizes information and helps users to navigate throughout the dataset in a comprehensive way.
 
 \subsection{Challenges and Outlook}
 \label{sec:challenges}
@@ -509,9 +535,13 @@ The work described here is only a first step to harmonization in that there are 
 
 \begin{itemize}
 \item \textbf{Data availability:} The next step would be to make sure that not only metadata, but the actual data is available on the Web in open web standards such as RDF so that data can be automatically crawled and analyzed.
-\item \textbf{Data integration and querying:} Linguistic data published on the Web should ideally follow the same format (e.g. RDF) so that it can be easily integrated and data can be queried across datasets. This presupposes the agreement on best practices for data publication and formats. The Natural Language Processing Interchange Format (NIF) is an obvious candidate for that.
+\item \textbf{Data integration and querying:} Linguistic data published on the
+    Web should ideally follow the same format (e.g. RDF) so that it can be
+    easily integrated and data can be queried across datasets. This presupposes
+    the agreement on best practices for data publication and formats. The
+    Natural Language Processing Interchange Format (NIF)\cite{hellmann2013integrating} is an obvious candidate for that.
 \item \textbf{Service harmonization and discovery:} Harmonization should be extended to the description of NLP services so that NLP services can be dissevered across providers and repositories. The mechanisms for description of the functionality of NLP services should be extremely light-weight.
-\item \textbf{Service composition and execution on the cloud:} Input and output formats for services should be standardized and homogenized so that services can be easily composed to realize more complex workflows, without relying on too much parametrization. Workflows of services should be easily executable \emph{`on the cloud'}. In order to scale, services should support parallelization and streaming and support non-centralized processing. Service execution and composition should not require special libraries, grids or other proprietary infrastructures or protocols, but rely only on open web standards and protocols such as the hypertext transfer protocol (http) and content negotiation, ideally being RESTful to keep APIs simple and stateless.
+\item \textbf{Service composition and execution on the cloud:} Input and output formats for services should be standardized and homogenized so that services can be easily composed to realize more complex workflows, without relying on too much parametrization. Workflows of services should be easily executable \emph{`on the cloud'}. In order to scale, services should support parallelization and streaming and support non-centralized processing. Service execution and composition should not require special libraries, grids or other proprietary infrastructures or protocols, but rely only on open web standards and protocols such as the hypertext transfer protocol (HTTP) and content negotiation, ideally being RESTful to keep APIs simple and stateless.
 \end{itemize}
 
 
@@ -521,7 +551,3 @@ The work described here is only a first step to harmonization in that there are 
 \bibliographystyle{splncs03}
 \bibliography{metashare-ontology-msw4}
 \end{document}
-
-
-
-
