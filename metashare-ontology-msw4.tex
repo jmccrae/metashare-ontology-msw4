@@ -119,12 +119,13 @@ and may change this statement based on his response, if any}
 \label{sec:ontology}
 \subsection{Original MS XSD schema[PL]}
 \label{sec:xsd}
-The design of the META-SHARE schema ~\cite{gavrilidou2012metashare} has been based upon previous similar efforts and metadata schemas used for the description of LRs as well as user needs recorded for the META-SHARE infrastructure. It has, therefore, been designed not only as an aid for LRs' search and retrieval processes but also as a means to fostering their production, use and re-use by bringing together knowledge about LRs and related objects and processes. Thus, the schema purports to encode information about the whole lifecycle of the LR from production to usage stages: for instance, information about funding is of interest to policy makers, about creation tools and processes can serve as a model for other LR producers, about the use of LRs in various projects and research papers for specific applications shows their usefulness and can be recommended to prospective LR consumers working on the same area.
-The central entity of the META-SHARE schema is the LR per se, which encompasses
-both {\bf data sets} (textual, audio and multimodal/multimedia corpora, lexical
-data, ontologies, terminologies, computational grammars, language models, etc.)
+The design of the META-SHARE schema ~\cite{gavrilidou2012metashare} has been %based upon previous similar efforts and metadata schemas used for the description of LRs as well as user needs recorded for the META-SHARE infrastructure. It has, therefore, been 
+designed not only as an aid for LRs' search and retrieval processes but also as a means to fostering their production, use and re-use by bringing together knowledge about LRs and related objects and processes. Thus, the schema purports to encode information about the whole lifecycle of the LR from production to usage stages: for instance, information about funding is of interest to policy makers, about creation tools and processes can serve as a model for other LR producers, about the use of LRs in various projects and research papers for specific applications shows their usefulness and can be recommended to prospective LR consumers working on the same area.
+The central entity of the META-SHARE schema is the LR \textit{per se}, which encompasses
+both {\bf data sets} (e.g., textual, audio and multimodal/multimedia corpora, lexical
+data, ontologies, terminologies, computational grammars, language models)
 and {\bf technologies (tools/services)} used for their processing. It should
-also be stressed here that the term ``LR'' in META-SHARE is intended for whole sets of text/audio/video etc. files (corpora), sets of lexical entries (lexical/conceptual resources), integrated tools/services and so on, rather than individual items (e.g. single texts, such as journal articles, poems in corpora or noun entries in lexica).
+also be stressed here that the term ``LR'' in META-SHARE is intended for whole sets of text/audio/video files (corpora), sets of lexical entries (lexical/conceptual resources), integrated tools/services and so on, rather than individual items (e.g. single texts, such as journal articles, poems in corpora or noun entries in lexica).
 In addition to the central entity, other entities are also documented in the
 schema; these are reference documents related to the LR (papers, reports,
 manuals etc.), persons/organizations involved in its creation and use (creators,
@@ -141,9 +142,16 @@ These are described only when the case arises, i.e. when they are linked to a sp
 The META-SHARE schema proposes a set of elements to encode specific descriptive
 features of each of these entities and relations holding between them, taking as
 a starting point the LR. Following the CMDI approach, these elements are grouped
-together into ``components'', which act as placeholders for well defined categories of information: for instance, the communication component of a person or organisation includes elements on email, postal address, telephone, url etc., while the identification component of a LR brings together elements required to identify it, such as the LR's full and short names, identifiers, a short description of its contents etc. One of the advantages of this mechanism is that it allows for a better structuring of the information, which is crucial for a complex schema like META-SHARE.
-The core of the schema is the resourceInfo component (Figure 1), which subsumes components that combine together to provide the full description of a resource and its lifecycle. For each LR there are:
+together into ``components'', which act as placeholders for well defined categories of information: for instance, the communication component of a person or organisation includes elements on email, postal address, telephone, URL etc., while the identification component of a LR brings together elements required to identify it, such as the LR's full and short names, identifiers, a short description of its contents etc. One of the advantages of this mechanism is that it allows for a better structuring of the information, which is crucial for a complex schema like META-SHARE.
+The core of the schema is the resourceInfo component (Figure
+1\textcolor{red}{ -- JPM where is this??}), which subsumes components that combine together to provide the full description of a resource and its lifecycle. For each LR there are:
+
 \begin{itemize}
+    \item Identification Info: Giving the name and other identifiers for the
+        resource.
+    \item Distribution Info: Describing the location of the resource.
+    \item Contact Person
+    \item Metadata Info: 
 \item \textcolor{red}{PL: instead of enumerating them, maybe I shoud just give a couple of examples} administrative components common to all LRs: identificationInfo, distributionInfo, contactPerson, metadataInfo, versionInfo, validationInfo, usageInfo, resourceDocumentationInfo, creationInfo and relationInfo;
 \item \textcolor{red}{PL: introducing resourceType and mediaType without any explanations; see if it's needed} \color[rgb]{0,0,0}\color[rgb]{0,0,0} components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), that cater for the encoding of information relevant to text, audio, video and image parts of corpora, text, audio, video and image parts of lexical/conceptual resources etc.; broadly speaking, these cover information related to contents, formatting, classification etc. which differ depending on the resource/media combination (e.g. genre takes different values for texts and videos, creation processes and tools are described differently for texts and videos etc.) .
 \end{itemize}
@@ -321,7 +329,7 @@ The main decision we took as regards the licensing module, was the re-structurin
     accessible form of a dataset as for example a downloadable file, an RSS feed
     or a web service that provides the data.''; this is the entity to which properties for describing licencing, forms and other details of distribution must be attached;
 \item License, which is treated/described/faced/represented? as a model licence, retaining only those properties that can help us generalize over terms and conditions and enriched with concepts from the ODRL vocabulary/ontology. 
-{PL: This needs better phrasing; add here a figure depecting what is metadata for resource/distrubiont/license; not sure how to do this in tex}
+{PL: This needs better phrasing; add here a figure depicting what is metadata for resource/distrubiont/license; not sure how to do this in tex}
 \end{itemize}
 \textcolor{red}{we need to explain here: model license, and license template with examples} 
 
