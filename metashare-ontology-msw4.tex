@@ -38,13 +38,13 @@ University Pompeu Fabra, Barcelona, Spain \\
 \label{sec:introduction}
 
 The study of language and the development of natural language processing applications requires the access to language resources. Lexicographers and terminologists require access to lexical resources and language corpora, corpus linguistics require access to language corpora and developers of natural language processing applications require annotated corporate to train models for part-of-speech tagging, named entity recognition (NER), parsing, etc. 
-Recently, several digital repositories that index metadata for language resources (LRs) have emerged, supporting the discovery and reuse of language resources. One of the most remarkable of such initiatives is META-SHARE~\cite{piperidis2012meta} (www.meta-share.eu), an open, integrated, secure and interoperable exchange infrastructure where LRs are documented, uploaded, stored, catalogued and announced, downloaded, exchanged and discussed, aiming to support reuse of language resources. Towards this end, META-SHARE has developed a rich metadata schema that allows to describe aspects of language resources accounting for their whole lifecycle from their production to their usage. The schema has been implemented as an XML Schema Definition (XSD). Descriptions of specific languages resources are available as XML documents.
+Recently, several digital repositories that index metadata for language resources (LRs) have emerged, supporting the discovery and reuse of LRs. One of the most remarkable of such initiatives is META-SHARE~\cite{piperidis2012meta} (www.meta-share.eu), an open, integrated, secure and interoperable exchange infrastructure where LRs are documented, uploaded, stored, catalogued and announced, downloaded, exchanged and discussed, aiming to support reuse of LRs. Towards this end, META-SHARE has developed a rich metadata schema that allows to describe aspects of LRs accounting for their whole lifecycle from their production to their usage. The schema has been implemented as an XML Schema Definition (XSD). Descriptions of specific LRs are available as XML documents.
 
 Yet, META-SHARE is not the only metadata repository for language resources and other repositories include \cite[CLARIN]{broeder2010data} as well as the 
 ~\cite[LRE-Map]{calzolari2012lre}. The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured. 
 All these repositories are complementary and index different language resources. Currently, it is not possible to query all these repositories in an integrated and uniform fashion. 
 
-In this paper we contribute to the interoperability of all these repositories by developing an ontology in the Web Ontology Language (OWL) that allows to represent the metadata schemes of these repositories uniformly, thus achieving an important first crucial step to establish interoperability between these repositories. The proposed ontology is based on the ontology developed by Villegas et al. ~\cite{Villegas2014} for the UPF's META-SHARE node, covering part of the original schema, however extending this initial effort to the whole schema and all LRs and incorporating the consensus 
+In this paper we contribute to the interoperability of all these repositories by developing an ontology in the Web Ontology Language (OWL)~\cite{motik2012owl} that allows to represent the metadata schemes of these repositories uniformly, thus achieving an important first crucial step to establish interoperability between these repositories. The proposed ontology is based on the ontology developed by Villegas et al.~\cite{Villegas2014} for the UPF's META-SHARE node, covering part of the original schema, however extending this initial effort to the whole schema and all LRs and incorporating the consensus 
 reached in the context of the W3C Linked Data for Language Technologies (LD4LT) Community Group\footnote{\url{https://www.w3.org/community/ld4lt}}.
 
 As a proof of concept of this ontology, we describe how we have mapped metadata records from the above mentioned three repositories (META-SHARE, CLARIN, LRE-Map) into this ontology. Further, we describe \emph{LingHub} \footnote{\url{http://linghub.org/}}, a portal that indexes and provides access to all these metadata records from the mentioned repositories. 
@@ -104,10 +104,12 @@ better interoperability~\cite{durco2014clarin}, however it is not clear if this
 project has been realized.\footnote{JPM: I emailed Menzo Windhouwer about this
 and may change this statement based on his response, if any}
 
-\section{The META-SHARE Ontology}
+\section{The META-SHARE OWL Ontology}
 \label{sec:ontology}
+
 \subsection{Original MS XSD schema[PL]}
 \label{sec:xsd}
+
 The design of the META-SHARE schema ~\cite{gavrilidou2012metashare} has been %based upon previous similar efforts and metadata schemas used for the description of LRs as well as user needs recorded for the META-SHARE infrastructure. It has, therefore, been 
 designed not only as an aid for LRs' search and retrieval processes but also as a means to fostering their production, use and re-use by bringing together knowledge about LRs and related objects and processes. Thus, the schema purports to encode information about the whole lifecycle of the LR from production to usage stages: for instance, information about funding is of interest to policy makers, about creation tools and processes can serve as a model for other LR producers, about the use of LRs in various projects and research papers for specific applications shows their usefulness and can be recommended to prospective LR consumers working on the same area.
 The central entity of the META-SHARE schema is the LR \textit{per se}, which encompasses
@@ -161,9 +163,16 @@ The core of the schema is the resourceInfo component (Figure
 %\item \textcolor{red}{PL: introducing resourceType and mediaType without any explanations; see if it's needed} \color[rgb]{0,0,0}\color[rgb]{0,0,0} components specific to {\it resourceType} and {\it mediaType} combinations (the two classification axes of the schema), 
 \end{itemize}
 The META-SHARE schema has been implemented as an XSD (available at {\textcolor{red}{GITHUB}). An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
+
 \subsection{Purpose of the ontology [MV,JG,JPM]}
 \label{sec:purpose}
-(e.g., why do RDF and OWL for an already defined vocabulary?)
+
+We argue that the Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents. To that end, we have chosen an OWL based representation for the META-SHARE ontology. 
+OWL allows for a higher expressive level than the original XML representation as well as the application of semantic reasoning techniques (i.e., to infer new knowledge that were not initially declared). Also, the XML-based representation proves inefficient when relating metadata resources. In fact, the use of RDF for representing the annotation of the underlying LRs metadata enable direct mechanisms for establishing links between metadata of different LRs and between metadata of LRs and other external sources.
+The resulting data is lighter, better suited for exploitation and eases further extensions and links with external resources such as DBpedia.
+Finally, the use of Semantic Web techniques enable also standardized means of accessing the data (e.g., via SPARQL) thus not relying on domain-specific data formats or proprietary APIs.
+
+
 
 \subsection{Formal modelling and mapping issues [MV, JPM, PL]}
 
