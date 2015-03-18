@@ -174,46 +174,15 @@ The META-SHARE schema has been implemented as an XSD (available at {\textcolor{r
 \subsection{Formal modelling and mapping issues [MV, JPM, PL]}
 
 The META-SHARE metadata model is formalised in a XSD schema that `transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
-In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements whereas \emph{components} are formalized as complex-type elements. When mapping the XSD schema to RDF, \emph{elements} can be naturally understood as properties (e.g. name, gender, etc.). \emph{Components} (i.e. complex-type elements), however, deserve a careful analysis. General mapping rules from XSD to RDF establish that a local element with complex type translates into an object property and a Class. An insight analysis of the META-SHARE schema showed that the straightforward application of such a principle may derive into unnecessary verbose graphs.
-META-SHARE distinguishes between two kinds of \emph{components}, namely:
-\begin{itemize}
-\item `special status components': these are used for the representation of
-    three satellite entities (persons, organizations and documents), which can
-    be re-used throughout the model with different roles: validators,
-    annotators, resource documentation, validation reports etc. These are
-    implemented as components(personInfo, organizationInfo, documentInfo) which
-    can be used for elements denoting the roles: validator, annotator,
-    contactPerson, validationReport etc. Moreover, some of these elements are
-    implemented as a choice between two components: annotator can be implented
-    as either a personInfo or an organizationInfo; documentation is used to
-    bring together the choice between a structured documentInfo component
-    (intended to be filled in like a bibliographic record) and a simple element
-    `documentUnstructured' (allowing for typing in links to or titles of simple readme files){Marta, are these choices the complex elements or linked components? what about contactPerson which is implemented directly as a personInfo?}
-\item `normal components', which simply group together semantically coherent information (e.g. metadataInfo, validationInfo etc.).
-\end{itemize}
-In the XSD schema, `special status components' are formalised as complex types
-and the different roles they perform in the model are encoded as complex
-elements. Thus, for example, the peronInfo type is reused in the schema by a
-number of complex elements performing different roles (i.e. contactPerson) When
-applying the conversion rules, the `special status components' have a double
-mapping: types become Classes and complex elements become object properties
-which correctly captures the semantics behind. For `normal components' things
-are more complex. They are also formalised as both complex elements with complex
-types. In this case, however, the complex type involved is only tied to a unique
-element. According to the general conversion rules, `normal components',  will
-produce an object property and the corresponding Class which, in most cases, may
-be unnecessary. 
 
-Following~\cite{Villegas2014}, we identified potentially removable nodes before
-the actual RDFication process. The criteria applied take into account the tree
+In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements whereas \emph{components} are formalized as complex-type elements. When mapping the XSD schema to RDF, \emph{elements} can be naturally understood as properties (e.g. name, gender, etc.). \emph{Components} (i.e. complex-type elements), however, deserve a careful analysis. General mapping rules from XSD to RDF establish that a local element with complex type translates into an object property and a Class. An insight analysis of the META-SHARE schema showed that the straightforward application of such a principle may derive into unnecessary verbose graphs. Thus, following~\cite{Villegas2014}, we identified potentially removable nodes before
+undertaking the actual RDFication process. The criteria applied take into account the tree
 structure of the nodes, their cardinality and the XPath axes. Thus, embedded
 complex elements with cardinalityMax=1 are identified as potentially removable,
 provided they do not contain text nor attributes. This allows for a
 simplification of the model, for example in the chain {\tt
 resourceInfo/identificationInfo/resourceName}, the {\tt identificationInfo}
-property is not needed.
-Note that such a simplification rule can be applied provided this does not derive in sibling conflicts: promoted nodes may cause naming conflicts in their new axe. Thus, a careful checking is needed in order to avoid possible clashes.
-Interestingly enough, the removal of the superfluous wrapping elements has also led to a change of philosophy to the schema and a need for re-structuring in order to ensure that properties are attached to the most appropriate node, as exemplified and discussed in Section \ref{sec:licensing}
+property is not needed. Interestingly enough, the removal of the superfluous wrapping elements has also led to a change of philosophy to the schema and a need for restructuring in order to ensure that properties are attached to the most appropriate node, as exemplified and discussed in Section \ref{sec:licensing}
 
 Beyond this, we made the following extensions to our mapping strategy:
 \begin{itemize}
