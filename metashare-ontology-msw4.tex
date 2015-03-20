@@ -62,7 +62,10 @@ has been implemented as an XML Schema Definition (XSD) \footnote{\url{https://gi
 Yet, META-SHARE is not the only metadata repository for LRs;
 other repositories include the CLARIN Virtual Language Observatory
 (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data} as
-well as the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}. The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
+well as the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}.
+\footnote{Other initiatives aiming to collect and publish information on LRs include Datahub (\url{http://datahub.io/}) which targets datasets published as linked data and the DiRT Directory (\url{http://dirtdirectory.org/}) andTERESAH %!!!!! This URL is obviously not stable, we should update it for the final version!!!!
+(\url{http://staging.teresah.php.dev.dasish.eu/}) focusing on tools for scholars.} 
+The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
 %All these repositories are complementary and index different language resources \textcolor{red}{PL: rephrase: their sources are different but they have overlapping sets of LRs}.
 Currently, it is not possible to query all these repositories in an integrated and uniform fashion.
 We argue that the Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents. %To that end, we have chosen an OWL based representation for the META-SHARE ontology.
@@ -100,29 +103,31 @@ impact of this ontology as a tool for computational linguists and as a method to
 realize an architecture of (linked) data-aware services.
 \section{Related Work}
 \label{sec:relatedwork}
-The task of finding common vocabularies for linguistics is of wide interest and several general ontologies for linguistics have been proposed. The General Ontology for Linguistic Description~\cite[GOLD]{farrar2002common} was proposed as a common model for linguistic data, but its relatively limited scope and low coherence has not lead to wide-spread adoption. An alternative approach that has been proposed is to use ontologies to create coherence among the resources, in particular either by using ontologies to align different linguistic schemas~\cite{chiarcos2012ontologies} or by means of agreed identifiers~\cite{kemps2008isocat}. 
-As regards LRs, there are as many metadata schemas for their descriptions as
+The task of finding common vocabularies for linguistics is of wide interest and several general ontologies for linguistics have been proposed. The General Ontology for Linguistic Description~\cite[GOLD]{farrar2002common} was proposed as a common model for linguistic data, but its relatively limited scope and low coherence has not lead to wide-spread adoption. An alternative approach that has been proposed is to use ontologies to create coherence among the resources, in particular either by using ontologies to align different linguistic schemas~\cite{chiarcos2012ontologies}.
+This lack of consensus resides also in the description of LRs, even for non-linguistic concepts. In fact, there are as many metadata schemas for their descriptions as
 catalogs and repositories for their presentation (e.g. those used by ELRA and
 the LDC) and communities describing them (e.g. TEI~\cite{ide1995text} or
-CES~\cite{ide1998corpus}). The most widely accepted schema is the one  suggested
+CES~\cite{ide1998corpus}). The most widely used schema for the exchanges of LRs is the one  suggested
 by the Open Language Archives Community~\cite[OLAC]{bird2001olac}, which builds on
 the Dublin Core metadata and has been criticized as too reductionistic.%~\cite{who} 
-Extending the principle of linking concepts through identifiers (stored in the
-ISOcat Data Category Registry~\cite{kemps2008isocat}), the Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN attempts to bring together ``components'' consisting of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
+Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text).
+
+An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR) ~\cite{kemps2008isocat}, intended as a registry where metadata providers could register their concepts (Data Categories) and link them to those of other providers. A subset thereof were selected by metadata experts as the core elements for the description of LRs. Extending this ISOcat principle, the Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN attempts to bring together ``components'' consisting of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
 %; however, this has not been achieved (cf. \ref{sec:harmonization}) and the VLO resorts to ISOcat links for aggregating similar resources. 
 However, as  we observe in section \ref{sec:harmonization}, this has in practice
 merely resulted in each contributing institute using its own scheme, with very
 little commonality between different institutes. To improve this situation it
 was recently proposed that the conversion of these CMDI schemas to RDF would
 enable better interoperability~\cite{durco2014clarin}.
+A different approach was taken for the design of the META-SHARE schema ~\cite{gavrilidou2012metashare}, which was based on a comparative study of metadata schemas, analysis of user needs and discussions with metadata providers and experts in order to arrive at a common schema.
 %, however it is not clear if this project has been realized.\footnote{JPM: I emailed Menzo Windhouwer about this and may change this statement based on his response, if any; PL: in lrec they said they have rdfized the schemas but there has been no implementation as far as I know; take out unless we're sure}
-Other initiatives aiming to bring together LRs include, among others,
-Datahub\footnote{\url{http://datahub.io/}} which targets datasets published as
-linked data and the DiRT Directory\footnote{\url{http://dirtdirectory.org/}} and
-TERESAH
+% Other initiatives aiming to bring together LRs include, among others,
+%Datahub\footnote{\url{http://datahub.io/}} which targets datasets published as
+%linked data and the DiRT Directory\footnote{\url{http://dirtdirectory.org/}} and
+%TERESAH
 %!!!!! This URL is obviously not stable, we should update it for the final
 % version!!!!
-\footnote{\url{http://staging.teresah.php.dev.dasish.eu/}} focusing on tools for scholars.
+%\footnote{\url{http://staging.teresah.php.dev.dasish.eu/}} focusing on tools for scholars.
 %and the Linguistic Linked Open Data \footnote{\url{http://linguistics.okfn.org/resources/llod/}} collecting descriptions of LRs available in Linked Data format.
 
 \section{The META-SHARE OWL Ontology}
@@ -136,7 +141,7 @@ TERESAH
     \caption{\label{fig:resource}The core of the META-SHARE model}
 \end{figure}
 
-The design of the META-SHARE schema~\cite{gavrilidou2012metashare} has been based upon previous similar efforts and metadata schemas used for the description of LRs as well as user needs. It has been designed not only as an aid for LR search and retrieval, but also as a means to foster their production, use and re-use by bringing together knowledge about LRs and related objects and processes, thus encoding information about the whole lifecycle of the LR from production to usage.
+The META-SHARE schema~\cite{gavrilidou2012metashare} has been designed not only as an aid for LR search and retrieval, but also as a means to foster their production, use and re-use by bringing together knowledge about LRs and related objects and processes, thus encoding information about the whole lifecycle of the LR from production to usage.
 The central entity of the META-SHARE schema is the LR \textit{per se}, which
 encompasses both {\bf data sets} (e.g., textual, audio and multimodal/multimedia
 corpora, lexical data, ontologies, terminologies, computational grammars,
