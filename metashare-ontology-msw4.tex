@@ -58,12 +58,14 @@ documented, uploaded, stored, catalogued, announced, downloaded, exchanged and
 discussed, aiming to support reuse of LRs. Towards this end, META-SHARE has
 developed a rich metadata schema that allows aspects of LRs accounting for their
 whole lifecycle from their production to their usage to be described. The schema has been implemented as an XML Schema Definition (XSD). Descriptions of specific LRs are available as XML documents.
+
 Yet, META-SHARE is not the only metadata repository for language resources;
 other repositories include the CLARIN Virtual Language Observatory
 (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data} as
 well as the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}. The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
 %All these repositories are complementary and index different language resources \textcolor{red}{PL: rephrase: their sources are different but they have overlapping sets of LRs}.
 Currently, it is not possible to query all these repositories in an integrated and uniform fashion.
+
 We argue that the Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents. %To that end, we have chosen an OWL based representation for the META-SHARE ontology.
 In this paper we contribute to the interoperability of all these repositories by
 developing an ontology in the Web Ontology Language (OWL)~\cite{motik2012owl}
@@ -72,8 +74,9 @@ extensible, open-world model.\footnote{The ontology is available at
 \url{http://purl.org/net/def/metashare}}
 %OWL allows for a higher expressive level than the original XML representation as well as the application of semantic reasoning techniques (i.e., to infer new knowledge that were not initially declared). Also, the XML-based representation has proved inefficient when linking metadata resources. In fact, the use of RDF for representing the LRs metadata underlying the OWL ontology enables direct mechanisms for linking between metadata of different LRs and between metadata of LRs and other external sources.
 The resulting data is lighter, better suited for exploitation and eases further extensions and links with external resources (e.g., DBpedia).
-Finally, the use of Semantic Web techniques enable standardized means of
+The use of Semantic Web techniques enable standardized means of representing, linking and 
 accessing the data (e.g., via SPARQL) avoiding domain-specific data formats or proprietary APIs.
+%Our approach has several advantages. Firstly, the use of Semantic Web techniques enables standardized means of representing, linking, and accessing the data.
 The proposed ontology is based on the ontology developed by Villegas et al.~\cite{Villegas2014} for the UPF's META-SHARE node, covering part of the original schema, however extending this initial effort to the whole schema and all LRs and incorporating the consensus
 reached in the context of the W3C Linked Data for Language Technologies (LD4LT) Community Group\footnote{\url{https://www.w3.org/community/ld4lt}}.
 We show how this model interacts with the DCAT~\cite{maali2014data} vocabulary
@@ -82,12 +85,13 @@ as well as the most frequent models in the CLARIN VLO data.
 Further, we describe the application of the model in two portals, firstly the
 IULA LOD catalogue and secondly
 \emph{LingHub}\footnote{\url{http://linghub.org/}}.
-Our approach has several advantages. Firstly, the use of Semantic Web techniques enables standardized means of representing, linking, and accessing the data.
+
 %(i.e., OWL, RDF) allows us to interlink different LR metadata among themselves and with other external resources on the Web of Data, and enables standardized means of representing and accessing the data (e.g., via SPARQL) thus not relying on domain-specific data formats or proprietary APIs.
 Secondly, we hope that the use of this ontology will enable the representation of metadata in a manner that allows existing resources to adopt a
 common core vocabulary, while still being able to represent specific extensions
 to their existing model and we evaluate this hypothesis by reference to the
 CLARIN.
+
 The remainder of this paper is structured as follows: in section
 \ref{sec:relatedwork} we will describe the related work in the fields of
 LR metadata and metadata harmonization. The development of the
