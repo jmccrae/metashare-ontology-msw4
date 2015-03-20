@@ -59,8 +59,9 @@ documented, uploaded, stored, catalogued, announced, downloaded, exchanged and
 discussed, aiming to support reuse of LRs. Towards this end, META-SHARE has
 developed a rich metadata schema that allows aspects of LRs accounting for their
 whole lifecycle from their production to their usage to be described. The schema
-has been implemented as an XML Schema Definition (XSD) and descriptions of specific LRs are available as XML documents.
-Yet, META-SHARE is not the only metadata repository for language resources;
+has been implemented as an XML Schema Definition (XSD) \footnote{available at \url{https://github.com/metashare/META-SHARE/tree/master/misc/schema/v3.0}} and descriptions of specific LRs are available as XML documents.
+
+Yet, META-SHARE is not the only metadata repository for LRs;
 other repositories include the CLARIN Virtual Language Observatory
 (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data} as
 well as the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}. The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
@@ -73,10 +74,6 @@ that allows us to represent the metadata schemes of these repositories under an
 extensible, open-world model.\footnote{The ontology is available at
 \url{http://purl.org/net/def/metashare}}
 %OWL allows for a higher expressive level than the original XML representation as well as the application of semantic reasoning techniques (i.e., to infer new knowledge that were not initially declared). Also, the XML-based representation has proved inefficient when linking metadata resources. In fact, the use of RDF for representing the LRs metadata underlying the OWL ontology enables direct mechanisms for linking between metadata of different LRs and between metadata of LRs and other external sources.
-The resulting data is lighter, better suited for exploitation and eases further
-extensions and links with external resources.
-The use of Semantic Web techniques enable standardized means of linking and
-accessing the data (e.g., via SPARQL) avoiding domain-specific data formats or proprietary APIs.
 The proposed ontology is based on the ontology developed by Villegas et
 al.~\cite{Villegas2014} for the University Pompeu Fabra's (UPF) META-SHARE node, covering part of the original schema, however extending this initial effort to the whole schema and all LRs and incorporating the consensus
 reached in the context of the W3C Linked Data for Language Technologies (LD4LT) Community Group\footnote{\url{https://www.w3.org/community/ld4lt}}.
@@ -86,17 +83,21 @@ as well as the most frequent models in the CLARIN VLO data.
 Further, we describe the application of the model in two portals, firstly the
 IULA LOD catalogue and secondly
 \emph{Linghub}\footnote{\url{http://linghub.org/}}.
-%Our approach has several advantages. Firstly, the use of Semantic Web techniques enables standardized means of representing, linking, and accessing the data.
+Our approach has several advantages. Firstly, the use of Semantic Web techniques enables standardized means of representing, linking, and accessing the data, while 
 %(i.e., OWL, RDF) allows us to interlink different LR metadata among themselves and with other external resources on the Web of Data, and enables standardized means of representing and accessing the data (e.g., via SPARQL) thus not relying on domain-specific data formats or proprietary APIs.
+the resulting data is lighter, better suited for exploitation and eases further
+extensions and links with external resources.
+%The use of Semantic Web techniques enable standardized means of linking and accessing the data (e.g., via SPARQL) avoiding domain-specific data formats or proprietary APIs.
 Secondly, we hope that the use of this ontology will enable the representation of metadata in a manner that allows existing resources to adopt a
 common core vocabulary, while still being able to represent specific extensions
 to their existing model and we evaluate this hypothesis by reference to the
 CLARIN.
-The remainder of this paper is structured as follows: in section
+
+The remainder of this paper is structured as follows: in Section
 \ref{sec:relatedwork} we will describe the related work in the fields of
 LR metadata and metadata harmonization. The development of the
 META-SHARE ontology is described in section \ref{sec:ontology}
-and its application in section \ref{sec:applications}.
+and its application in Section \ref{sec:applications}.
 Finally, in section \ref{sec:conclusion} we consider the broader
 impact of this ontology as a tool for computational linguists and as a method to
 realize an architecture of (linked) data-aware services.
@@ -153,15 +154,14 @@ together into ``components''. The core of the schema is the {\tt resourceInfo}
 component (Figure \ref{fig:resource}), which subsumes 
 \begin{itemize}
 \item administrative components relevant to all LRs, e.g. {\tt
-    identificationInfo} (name, description and identifiers), {\tt
-    distributionInfo} (licensing and intellectual property rights information), {\tt usageInfo}
-    (information about the intended and actual use of the LR).
+    identificationInfo} (name, description and identifiers), {\tt distributionInfo} (licensing and intellectual property rights information), {\tt usageInfo} (information about the intended and actual use of the LR).
 \item components specific to the resource type (corpus, lexical/conceptual
     resource, language model, tool/service) and media type (text, audio, video,
-    image) allow the encoding of information relevant to text or audio and corpora
-    or lexical/conceptual resources (e.g. language, formatting, classification).
+    image), which allow the encoding of information relevant to resource/media combinations, e.g. text or audio parts of corpora, lexical/conceptual resources etc., such as language, formats, classification.
 \end{itemize} 
-The META-SHARE schema has been implemented as an XSD (available at {\textcolor{red}{GITHUB}). An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
+The META-SHARE schema recognises obligatory elements (minimal version) and recommended and optional elements (maximal version). 
+%The META-SHARE schema has been implemented as an XSD (available at {\textcolor{red}{GITHUB}). 
+An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
 \subsection{Formal modelling and mapping issues}
 \label{sec:mapping}
 %{PL: repetition: take out}The META-SHARE metadata model is formalised in a XSD schema that `transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
@@ -182,10 +182,10 @@ example in the chain {\tt resourceInfo} $\circ$ {\tt identificationInfo}
 $\circ$ {\tt resourceName}, the {\tt identificationInfo} property is not needed.
 Interestingly enough, the removal of the superfluous wrapping elements has also
 led to a change of philosophy in the schema and a need for restructuring in order to ensure that properties are attached to the most appropriate node, as exemplified and discussed in Section \ref{sec:licensing}.
-Beyond this, we made the following extensions to our mapping strategy:
+Beyond this, we made extensions to our mapping strategy in order to improve the ontology, such as the following:
 \begin{itemize}
 %\item renaming of elements when falling into one of the following categories:
-    \item Removal of the {\tt InfoType} suffix from the names of  wrapping elements of
+    \item Removal of the {\tt Info} suffix from the names of  wrapping elements of
         components.
 %        , as this makes no sense in the new philosophy of the schema: e.g. {\tt validationInfo} becomes validation (as property) and Validation (as class);
     \item Improvement of names that created confusion, as already noted by the
@@ -201,11 +201,11 @@ Beyond this, we made the following extensions to our mapping strategy:
 %\item Movement of properties to other nodes: obviously, when components are removed, the properties are attached to the higher node; but also for cases where there's a change of concept, as described in \ref{sec:licensing} 
 \item Grouping similar elements under novel superclasses, e.g. {\tt
     annotationType} and {\tt genre} values are structured in classes and
-    subclasses better reflecting the relation between them. Similarly, the superclass
+    subclasses better reflecting the relation between them. Indicatively, the superclass
     {\tt SemanticAnnotation} can be used to bring together semantic annotation types,
     such as semantic roles, named entities, polarity, semantic relations.
 \item Extension of existing classes with new values and new properties
-    (see section \ref{sec:licensing}).
+    (e.g. licenseCategory for licences).
 \end{itemize}
 
 The actual mapping was achieved by means of a custom domain-specific language
@@ -260,31 +260,28 @@ Group\footnote{\url{https://www.w3.org/community/odrl/}} which defines a model
 for representing permissions, prohibitions and duties.
 The most common licenses (for software, data or general works) have been already
 expressed in ODRL in the RDF License dataset~\cite{rdflicense} and can be pointed to when an LR is licensed with any of these.
-Extensions to the vocabulary were needed to represent some of the specificities
+Extensions to the ODRL vocabulary have been made to represent some of the specificities
 of the LR domain. The specification also suggested changes, some of them
 structural, to the previous META-SHARE modelling, and to this extent we
 combined the existing META-SHARE licensing vocabulary with ODRL.
-
-
-META-SHARE limits fuzziness in the terms and conditions of use of LRs by
-providing a range
-of recommended standard licenses organised on the following axes: open licences are the preferred option
-(Creative Commons licences for data resources and Free Open Source Software for tools and
-services), followed by two sets of model (standard) licences built in response
-to LR providers' requests (META-SHARE Commons and NoRedistribution licences);
-custom and proprietary licences are also provided for legacy
-resources that cannot be licensed otherwise. 
-Further, generic \textit{conditions-of-use} were included in META-SHARE, for
-resources that do not use a standard license. We represented these
-conditions-of-use as an RDF
-document with common terms and conditions (e.g. attribution) mapped to ODRL
-actions (duty to attribute) which are ready to be complemented by other
-information that changes more frequently. In this way, some of the variable
-elements are detached and more easy editable. 
 In addition, we extended the model by adding some new properties and individuals
 based on requirements from the LD4LT community group\footnote{\url{https://www.w3.org/community/ld4lt/wiki/Metasharevocabularyforlicenses}}.
-This module has been published as independent module\footnote{\url{http://purl.org/NET/ms-rights}} 
-so it may be used independently of the META-SHARE ontology.
+
+META-SHARE limits fuzziness in the terms and conditions of use of LRs by
+providing a range of recommended standard licenses organised on the following axes: open licences are the preferred option (Creative Commons licences for data resources and Free Open Source Software for tools and
+services), followed by two sets of model (standard) licences built in response
+to LR providers' requests (META-SHARE Commons and NoRedistribution licences);
+custom and proprietary licences are also allowed for legacy
+resources that cannot be licensed otherwise. 
+Further, the generic \textit{conditions-of-use} values of the META-SHARE schema have been exploited for
+creating RDF codes for non standard licences: common terms and conditions (e.g. attribution) are mapped to ODRL
+actions (duty to attribute), and included in an RDF
+document, in which they are ready to be complemented by other
+information that changes more frequently. In this way, some of the variable
+elements are detached and more easy editable. 
+
+This module has been published both as independent module\footnote{\url{http://purl.org/NET/ms-rights}} 
+and as part of the META-SHARE ontology.
 
 %These changes included the selection of classes and properties from other existing vocabularies (specifically from ODRL, Dublin Core, Creative Commons REL\footnote{\url{http://creativecommons.org/ns}} and SKOS) as well as the definition of new ones.
 
