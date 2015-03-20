@@ -14,8 +14,7 @@
 % This is not the final order!
 %\author{Philipp Cimiano\inst{1} \and Jorge Gracia\inst{2} \and Penny Labropoulou\inst{3} \and John P. McCrae\inst{1} \and V\'ictor Rodr\'iguez Doncel\inst{2} \and Marta Villegas\inst{4}}
 \author{John P. McCrae\inst{1} \and Penny Labropoulou\inst{3} \and Jorge
-Gracia\inst{2} \and Marta Villegas\inst{4} \and V\'ictor Rodr\'iguez
-Doncel\inst{2} \and Philipp Cimiano\inst{1}}
+Gracia\inst{2} \and Marta Villegas\inst{4} \and V\'ictor Rodr\'iguez-Doncel\inst{2} \and Philipp Cimiano\inst{1}}
 %
 \authorrunning{McCrae et al.} % abbreviated author list (for running head)
 %
@@ -52,13 +51,13 @@ The study of language and the development of natural language processing (NLP) a
 Recently, several digital repositories that index metadata for LRs have emerged,
 supporting the discovery and reuse of LRs. One of the most notable of such
 initiatives is
-META-SHARE\footnote{\url{http://www.meta-share.eu)}}~\cite{piperidis2012meta}, an open,
+META-SHARE\footnote{\url{http://www.meta-share.eu}}~\cite{piperidis2012meta}, an open,
 integrated, secure and interoperable exchange infrastructure where LRs are
 documented, uploaded, stored, catalogued, announced, downloaded, exchanged and
 discussed, aiming to support reuse of LRs. Towards this end, META-SHARE has
 developed a rich metadata schema that allows aspects of LRs accounting for their
 whole lifecycle from their production to their usage to be described. The schema
-has been implemented as an XML Schema Definition (XSD) \footnote{available at \url{https://github.com/metashare/META-SHARE/tree/master/misc/schema/v3.0}} and descriptions of specific LRs are available as XML documents.
+has been implemented as an XML Schema Definition (XSD) \footnote{\url{https://github.com/metashare/META-SHARE/tree/master/misc/schema/v3.0}} and descriptions of specific LRs are available as XML documents.
 
 Yet, META-SHARE is not the only metadata repository for LRs;
 other repositories include the CLARIN Virtual Language Observatory
@@ -70,8 +69,7 @@ We argue that the Web of Data is a natural scenario for exposing LRs metadata in
 In this paper we contribute to the interoperability of these repositories by
 developing an ontology in the Web Ontology Language (OWL)~\cite{motik2012owl}
 that allows us to represent the metadata schemes of these repositories under an
-extensible, open-world model.\footnote{The ontology is available at
-\url{http://purl.org/net/def/metashare}}
+extensible, open-world model.\footnote{\url{http://purl.org/net/def/metashare}}
 %OWL allows for a higher expressive level than the original XML representation as well as the application of semantic reasoning techniques (i.e., to infer new knowledge that were not initially declared). Also, the XML-based representation has proved inefficient when linking metadata resources. In fact, the use of RDF for representing the LRs metadata underlying the OWL ontology enables direct mechanisms for linking between metadata of different LRs and between metadata of LRs and other external sources.
 The proposed ontology is based on the ontology developed by Villegas et
 al.~\cite{Villegas2014} for the University Pompeu Fabra's (UPF) META-SHARE node, covering part of the original schema, but extended it to the complete schema and to cover all relevant LRs by incorporating the consensus
@@ -108,7 +106,7 @@ catalogs and repositories for their presentation (e.g. those used by ELRA and
 the LDC) and communities describing them (e.g. TEI~\cite{ide1995text} or
 CES~\cite{ide1998corpus}). The most widely accepted schema is the one  suggested
 by the Open Language Archives Community~\cite[OLAC]{bird2001olac}, which builds on
-the Dublin Core metadata and has been criticized as too reductionistic~\cite{who}. 
+the Dublin Core metadata and has been criticized as too reductionistic.%~\cite{who} 
 Extending the principle of linking concepts through identifiers (stored in the
 ISOcat Data Category Registry~\cite{kemps2008isocat}), the Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN attempts to bring together ``components'' consisting of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
 %; however, this has not been achieved (cf. \ref{sec:harmonization}) and the VLO resorts to ISOcat links for aggregating similar resources. 
@@ -448,7 +446,7 @@ We believe that the development of common vocabularies
 such as the one presented in paper should enable the emergence of a new paradigm supporting the discovery and exploitation of linguistic data and services across repositories.
 
 
-\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R) and the Greek CLARIN Attiki project (MIS 441451).
+\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R and a Juan de la Cierva grant) and the Greek CLARIN Attiki project (MIS 441451).
 \bibliographystyle{splncs03}
 \bibliography{metashare-ontology-msw4}
 \end{document}
