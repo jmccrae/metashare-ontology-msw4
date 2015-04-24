@@ -166,6 +166,14 @@ The META-SHARE schema recognises obligatory elements (minimal version) and recom
 An integrated environment supports the description of LRs, either from scratch or through uploading of XML files adhering to the META-SHARE metadata schema, as well as browsing, searching and viewing of the LRs.
 \subsection{Formal modelling and mapping issues}
 \label{sec:mapping}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\textwidth]{linghub-screenshot.png}
+    \caption{META-SHARE data as displayed within the Linghub
+    interface\label{fig:screenshot}}
+\end{figure}
+
 %{PL: repetition: take out}The META-SHARE metadata model is formalised in a XSD schema that `transcodes' a component-based model as suggested by CLARIN~\cite{broeder2012cmdi}. Essentially, the component-based approach revolves around two central concepts: \emph{elements} and \emph{components}. \emph{Elements} are used to encode specific descriptive features of the resources and are linked to conceptually similar existing elements in the Dublin Core and/or the ISOcat registry. \emph{Components} are complex elements and can be seen as bundle of semantically coherent \emph{elements}.
 %{PL: I think this paragraph should be turned into bullets in the list our decisions of mapping, one for the mapping of components/elements and one for the simplification rule}
 In the META-SHARE XSD schema, \emph{elements} are formalized as simple elements
@@ -214,6 +222,36 @@ The actual mapping was achieved by means of a custom domain-specific language
 inspired by XML Stylesheet Transforms.
 
 \subsection{Interface with DCAT and other vocabularies}
+
+\begin{figure}
+    {\footnotesize
+    \begin{verbatim}
+<> a dcat:Dataset ;
+  dc:description "Cette base de données..."@fr
+  dc:language "tur" ;
+  dc:source "META-SHARE" ;
+  dc:title "Turkish Continuous and Isolated Word Speech Database"@en ;
+  dct:type ms:corpus ;
+  ms:corpusInfo <#corpusInfo> ;
+  ms:distributionInfo <#distributionInfo> ;
+  rdfs:seeAlso <http://metashare.elda.org/reposit...ac770/> .
+
+<#corpusInfo> a ms:CorpusInfo , ms:CorpusAudioInfo ;
+  dc:language "tur" ;
+  ms:languageName "Turkish" ;
+  ms:mediaType ms:audio ;
+  ms:linguality ms:monolingual .
+
+<#distributionInfo> a ms:DistributionInfo , dcat:Distribution ;
+  dct:license <#licenceInfo> , <#licenceInfo2> ;
+  ms:availability ms:restrictedUse ;
+  dcat:accessURL <http://catalog.elra...> .
+\end{verbatim}}
+\caption{An abridged example of a metadata entry represented with common metadata
+    properties from DCAT and Dublin Core and novel properties from the MetaShare
+ontology.\label{fig:example-dcat}}
+\end{figure}
+
 \label{sec:dcat}
 The META-SHARE model can be considered broadly similar to DCAT in that there are
 classes that are nearly an exact match to the ones in DCAT for three out of four
