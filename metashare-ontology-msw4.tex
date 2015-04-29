@@ -68,7 +68,9 @@ well as the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cit
 The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
 %All these repositories are complementary and index different language resources \textcolor{red}{PL: rephrase: their sources are different but they have overlapping sets of LRs}.
 Currently, it is not possible to query all these repositories in an integrated and uniform fashion.
-We argue that the Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents. %To that end, we have chosen an OWL based representation for the META-SHARE ontology.
+The Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents and the benefits of this model including interoperability, federation, expressivity and dynamicity were laid out by Chiarcos et al.\cite{chiarcos2012towards}.
+
+ %To that end, we have chosen an OWL based representation for the META-SHARE ontology.
 In this paper we contribute to the interoperability of these repositories by
 developing an ontology in the Web Ontology Language (OWL)~\cite{motik2012owl}
 that allows us to represent the metadata schemes of these repositories under an
@@ -373,9 +375,11 @@ We will focus on the
 top five of these types for which we have created corresponding mappings. Two of these schemes are only Dublin Core properties and so do not have
 specific language resource metadata. The most frequent tag 'Song' tag is used to describe records of a 
 database consisting of musical recordings. While many of the properties used by this tag (e.g., `number of
-stanzas') have no correspondence in Dublin Core, they can be described with respect to the META-SHARE Ontology through properties to describe 
-the technical format information (i.e., `audio
-encoding'). The {\tt Session} tag is used to provide IMDI metadata~\cite{broeder2001imdi} and has a very loose correspondence to META-SHARE: For instance, there are no corresponding properties to describe the participants of a media recording.
+stanzas') have no correspondence in Dublin Core, they can be described with respect to existing elements of the META-SHARE Ontology.
+%through properties to describe 
+%the technical format information (i.e., `audio
+%encoding'). 
+The {\tt Session} tag is used to provide IMDI metadata~\cite{broeder2001imdi} and has a very loose correspondence to META-SHARE: For instance, there are no corresponding properties to describe the participants of a media recording.
 This highlights the advantage of
 taking an open world, ontological approach as opposed to a fixed schema, in that
 we can easily introduce new properties while still reusing the META-SHARE properties
