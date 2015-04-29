@@ -2,6 +2,8 @@
 \usepackage{color}
 \usepackage{array}
 \usepackage{graphicx}
+\usepackage{listings}
+  \usepackage{courier}
 
 \begin{document}
 %\title{Metashare as an ontology for the interoperability of linguistic datasets}
@@ -280,8 +282,21 @@ actions (e.g. the duty to attribute), and included in an RDF
 document. Extension with more variable aspects of licenses can be added on top. In this way, some of the variable
 elements are detached and more easy editable. 
 
+
 This module has been published both as independent module\footnote{\url{http://purl.org/NET/ms-rights}} 
-and as part of the META-SHARE ontology.
+and as part of the META-SHARE ontology. 
+An example on how language resources can be licensed is shown by the RDF document below: a resource is offered under one of the META-SHARE recommended licenses: the Meta-Share Commercial-NoRedistribution-ForAFee license. This is a generic license template published online, whose precise fields (parties, specific price) are in blank. This license offers a resource for a free and forbids its redistribution.
+
+\begin{lstlisting}
+:resource a dcat:Distribution ;
+  dct:license <http://purl.org/NET/rdflicense/ms-c-nored-ff> ;
+  gr:hasPriceSpecification [ 
+    gr:hasCurrencyValue "400"^^xsd:float; 
+    gr:hasCurrency "USD"^^xsd:string ].
+    ] .
+\end{lstlisting}
+
+A Dublin Core license property links the resource with the license, and the price -whose precise number is not specific in the generic license online- is given using the GoodRelations\footnote{\url{http://www.heppnetz.de/projects/goodrelations/}} vocabulary. The RDF version of this generic license can also be found online, in a structure that permits some degree of reasoning on the licensing terms.
 
 %These changes included the selection of classes and properties from other existing vocabularies (specifically from ODRL, Dublin Core, Creative Commons REL\footnote{\url{http://creativecommons.org/ns}} and SKOS) as well as the definition of new ones.
 
