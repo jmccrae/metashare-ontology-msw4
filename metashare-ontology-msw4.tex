@@ -58,14 +58,14 @@ developed a rich metadata schema that allows aspects of LRs accounting for their
 whole lifecycle from their production to their usage to be described. The schema
 has been implemented as an XML Schema Definition (XSD) \footnote{\url{https://github.com/metashare/META-SHARE/tree/master/misc/schema/v3.0}} and descriptions of specific LRs are available as XML documents.
 
-Yet, META-SHARE is not the only metadata repository for LRs;
-other repositories include the CLARIN Virtual Language Observatory
-(VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data} (which targets the Social Sciences and Humanties researchers), the LRE-Map\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre} (which is based on input from LR-related conferences), catalogs of dedicated LR agencies (ELRA in Europe, LDC in the US,  .
+Yet, META-SHARE is not the only source for discovering LRs and their descriptions; other sources include the catalogs of agencies dedicated to LRs promotion and distribution, such as ELRA\footnote{\url{http://www.elra.info/en}} and LDC\footnote{\url{https://www.ldc.upenn.edu/}}, other infrastructures such as the CLARIN Virtual Language Observatory (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data}, 
+the Language Grid\footnote{\url{http://langrid.org/en/index.html}} and Alveo\footnote{\url{http://alveo.edu.au}}, the Open Language Archives Community (OLAC)\footnote{\url{http://www.language-archives.org}}, 
+catalogs with crowd-sourced metadata, such as the LREMap\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}, and, more recently, repositories coming from various communities (e.g. OpenAire\footnote{\url{https://www.openaire.eu/}}, EUDAT\footnote{\url{http://eudat.eu}} etc.). 
 %\footnote{Other initiatives aiming to collect and publish information on LRs include Datahub (\url{http://datahub.io/}) which targets datasets published as linked data and the DiRT Directory (\url{http://dirtdirectory.org/}) andTERESAH %!!!!! This URL is obviously not stable, we should update it for the final version!!!!
 %(\url{http://staging.teresah.php.dev.dasish.eu/}) focusing on tools for scholars.} 
-The metadata schemes of these different repositories vary with respect to their coverage and the set of specific metadata captured.
+The metadata schemes of all these sources vary with respect to their coverage and the set of specific metadata captured.
 %All these repositories are complementary and index different language resources \textcolor{red}{PL: rephrase: their sources are different but they have overlapping sets of LRs}.
-Currently, it is not possible to query all these repositories in an integrated and uniform fashion.
+Currently, it is not possible to query all these sources in an integrated and uniform fashion.
 The Web of Data is a natural scenario for exposing LRs metadata in order to allow their automated discovery, share and reuse by humans or software agents and the benefits of this model including interoperability, federation, expressivity and dynamicity were laid out by Chiarcos et al.\cite{chiarcos2012towards}.
 
  %To that end, we have chosen an OWL based representation for the META-SHARE ontology.
@@ -89,12 +89,12 @@ extensions and links with external resources.
 %The use of Semantic Web techniques enable standardized means of linking and accessing the data (e.g., via SPARQL) avoiding domain-specific data formats or proprietary APIs.
 In addition, we assume that the use of this ontology will enable the representation of metadata in a manner that allows existing resources to adopt a
 common core vocabulary, while still being able to represent specific extensions
-to their existing model. We evaluate this hypothesis by reference to 
-CLARIN.
+to their existing model. We evaluate this hypothesis by reference to the 
+CLARIN metadata.
 
 The remainder of this paper is structured as follows: in Section
 \ref{sec:relatedwork} we will describe the related work in the fields of
-LR metadata and metadata harmonization. The development of the
+LR metadata harmonization. The development of the
 META-SHARE ontology is described in section \ref{sec:ontology}
 and its application in Section \ref{sec:applications}.
 Finally, in section \ref{sec:conclusion} we consider the broader
@@ -110,7 +110,7 @@ the LDC) and communities describing them (e.g. TEI~\cite{ide1995text} or
 CES~\cite{ide1998corpus}). The most widely used schema for the exchange of LRs is the one  suggested
 by the Open Language Archives Community~\cite[OLAC]{bird2001olac}, which builds on
 the Dublin Core metadata and has been criticized as too reductionistic. %~\cite{who} 
-Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text).
+Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text). 
 
 An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR) ~\cite{kemps2008isocat}, intended as a registry where metadata providers could register their concepts (Data Categories) and link them to those of other providers. A subset thereof were selected by metadata experts as the core elements for the description of LRs ("Athens Core"). The Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN extends this principle of a common registry to include "components" and "profiles": "components'' consist of semantically close elements to be shared among different communities when producing "profiles'' for specific LR types.
 %; however, this has not been achieved (cf. \ref{sec:harmonization}) and the VLO resorts to ISOcat links for aggregating similar resources. 
@@ -119,7 +119,8 @@ merely resulted in each contributing institute using its own scheme, with very
 little commonality between different institutes. To improve this situation it
 was recently proposed that the conversion of these CMDI schemas to RDF would
 enable better interoperability~\cite{durco2014clarin}.
-A different approach was taken for the design of the META-SHARE schema ~\cite{gavrilidou2012metashare}, which was based on a comparative study of metadata schemas and popular catalog descriptions (including those of ELRA and LDC), analysis of user needs and discussions with metadata providers and experts in order to arrive at a common schema.
+
+A different approach was taken for the design of the META-SHARE schema ~\cite{gavrilidou2012metashare}, which was based on a comparative study of the most widespread metadata schemas and catalog descriptions, analysis of user needs and discussions with metadata providers and experts in order to arrive at a common schema, taking into account previous initiatives and recommendations (cf. ~\cite{calzolari2010flarenet} and ~\cite{cieri2010metadata}).
 %, however it is not clear if this project has been realized.\footnote{JPM: I emailed Menzo Windhouwer about this and may change this statement based on his response, if any; PL: in lrec they said they have rdfized the schemas but there has been no implementation as far as I know; take out unless we're sure}
 % Other initiatives aiming to bring together LRs include, among others,
 %Datahub\footnote{\url{http://datahub.io/}} which targets datasets published as
@@ -215,7 +216,7 @@ Beyond this, we made extensions to our mapping strategy in order to improve the 
     {\tt SemanticAnnotation} can be used to bring together semantic annotation types,
     such as semantic roles, named entities, polarity, and semantic relations.
 \item Extension of existing classes with new values and new properties
-    (e.g. licenseCategory for licences).
+    (e.g. {\ttlicenseCategory} for licences).
 \end{itemize}
 
 The actual mapping was achieved by means of a custom domain-specific language
@@ -440,9 +441,9 @@ users to navigate throughout the datasets in a comprehensive way.
 \subsection{Linghub}
 
 Linghub is a portal designed to allow common querying of metadata from multiple
-highly heterogeneous repositories. Currently, this repository draws not only
+highly heterogeneous repositories. Currently, it draws not only
 from META-SHARE, but also from the LRE-Map~\cite{calzolari2012lre}, the CLARIN
-VLO~\cite{broeder2010data} and DataHub. The repository currently bases itself
+VLO~\cite{broeder2010data} and DataHub and is regularly updated with new/changed information. The repository currently bases itself
 mostly on the DCAT and Dublin Core vocabularies, however these models do not capture
 any specific linguistic information. For this reason, the ontology described in this paper is currently being integrated into the system to allow users to use META-SHARE as the
 basic vocabulary for querying linguistic information about language resources, and the mappings previously
@@ -491,7 +492,7 @@ We believe that the development of common vocabularies
 such as the one presented in paper should enable the emergence of a new paradigm supporting the discovery and exploitation of linguistic data and services across repositories.
 
 
-\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R and a Juan de la Cierva grant) and the Greek CLARIN Attiki project (MIS 441451).
+\subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R and a Juan de la Cierva grant), the Greek CLARIN Attiki project (MIS 441451) and the H2020 project CRACKER (645357).
 \bibliographystyle{splncs03}
 \bibliography{metashare-ontology-msw4}
 \end{document}
