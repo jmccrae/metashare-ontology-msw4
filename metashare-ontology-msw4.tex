@@ -28,7 +28,7 @@ University, Germany \\
 Ontology Engineering Group, Universidad Polit\'ecnica de Madrid, Spain \\
 \email{\{jgracia, vrodriguez\}@fi.upm.es}
 \and
-ILSP/"Athena" RC, Athens, Greece \\
+ILSP/``Athena'' RC, Athens, Greece \\
 \email{penny@ilsp.athena-innovation.gr}
 \and
 University Pompeu Fabra, Barcelona, Spain \\
@@ -84,15 +84,15 @@ as well as the most prominent models in the CLARIN VLO data.
 Further, we describe the application of the model in two portals, firstly the
 IULA LOD catalogue and secondly
 \emph{Linghub}\footnote{\url{http://linghub.org/}}.
-Our approach has several advantages. Firstly, the use of Semantic Web techniques support standardized means of representing, linking, and accessing the data, while 
+%Our approach has several advantages. Firstly, the use of Semantic Web techniques support standardized means of representing, linking, and accessing the data, while 
 %(i.e., OWL, RDF) allows us to interlink different LR metadata among themselves and with other external resources on the Web of Data, and enables standardized means of representing and accessing the data (e.g., via SPARQL) thus not relying on domain-specific data formats or proprietary APIs.
-the resulting data is lighter, better suited for exploitation and eases further
-extensions and links with external resources.
+%the resulting data is lighter, better suited for exploitation and eases further
+%extensions and links with external resources.
 %The use of Semantic Web techniques enable standardized means of linking and accessing the data (e.g., via SPARQL) avoiding domain-specific data formats or proprietary APIs.
-In addition, we assume that the use of this ontology will enable the representation of metadata in a manner that allows existing resources to adopt a
-common core vocabulary, while still being able to represent specific extensions
-to their existing model. We evaluate this hypothesis by reference to the 
-CLARIN metadata.
+%In addition, we assume that the use of this ontology will enable the representation of metadata in a manner that allows existing resources to adopt a
+%common core vocabulary, while still being able to represent specific extensions
+%to their existing model. We evaluate this hypothesis by reference to the 
+%CLARIN metadata.
 
 The remainder of this paper is structured as follows: in Section
 \ref{sec:relatedwork} we will describe the related work in the fields of
@@ -112,9 +112,10 @@ the LDC) and communities describing them (e.g. TEI~\cite{ide1995text} or
 CES~\cite{ide1998corpus}). The most widely used schema for the exchange of LRs is the one  suggested
 by the Open Language Archives Community~\cite[OLAC]{bird2001olac}, which builds on
 the Dublin Core metadata and has been criticized as too reductionistic. %~\cite{who} 
-Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text). 
+%Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text). 
+Differences between the schemas lie in the range of features used and their labels and datatypes.
 
-An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR) ~\cite{kemps2008isocat}, intended as a registry where metadata providers could register their concepts (Data Categories) and link them to those of other providers. A subset thereof were selected by metadata experts as the core elements for the description of LRs ("Athens Core"). The Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN extends this principle of a common registry to include "components" and "profiles": "components'' consist of semantically close elements to be shared among different communities when producing "profiles'' for specific LR types.
+An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR) ~\cite{kemps2008isocat}, intended as a registry where metadata providers could register their concepts (Data Categories) and link them to those of other providers. A subset thereof were selected by metadata experts as the core elements for the description of LRs (``Athens Core''). The Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN extends this principle of a common registry to include ``components'' and ``profiles'': ``components'' consist of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
 %; however, this has not been achieved (cf. \ref{sec:harmonization}) and the VLO resorts to ISOcat links for aggregating similar resources. 
 However, as  we observe in section \ref{sec:harmonization}, this has in practice
 merely resulted in each contributing institute using its own scheme, with very
@@ -218,7 +219,7 @@ Beyond this, we made extensions to our mapping strategy in order to improve the 
     {\tt SemanticAnnotation} can be used to bring together semantic annotation types,
     such as semantic roles, named entities, polarity, and semantic relations.
 \item Extension of existing classes with new values and new properties
-    (e.g. {\ttlicenseCategory} for licences).
+    (e.g. {\tt licenseCategory} for licences).
 \end{itemize}
 
 The actual mapping was achieved by means of a custom domain-specific language
@@ -233,8 +234,6 @@ inspired by XML Stylesheet Transforms.
   dc:description "Cette base de données..."@fr
   dc:language "tur" ;
   dc:source "META-SHARE" ;
-  dc:title "Turkish Continuous and Isolated Word Speech Database"@en ;
-  dct:type ms:corpus ;
   ms:corpusInfo <#corpusInfo> ;
   ms:distributionInfo <#distributionInfo> ;
   rdfs:seeAlso <http://metashare.elda.org/reposit...ac770/> .
@@ -242,13 +241,8 @@ inspired by XML Stylesheet Transforms.
 <#corpusInfo> a ms:CorpusInfo , ms:CorpusAudioInfo ;
   dc:language "tur" ;
   ms:languageName "Turkish" ;
-  ms:mediaType ms:audio ;
-  ms:linguality ms:monolingual .
+  ms:mediaType ms:audio .
 
-<#distributionInfo> a ms:DistributionInfo , dcat:Distribution ;
-  dct:license <#licenceInfo> , <#licenceInfo2> ;
-  ms:availability ms:restrictedUse ;
-  dcat:accessURL <http://catalog.elra...> .
 \end{verbatim}}
 \caption{An abridged example of a metadata entry represented with common metadata
     properties from DCAT and Dublin Core and novel properties from the MetaShare
@@ -308,34 +302,33 @@ structural, to the previous META-SHARE modelling, and to this extent we
 combined the existing META-SHARE licensing vocabulary with ODRL.
 In addition, we extended the model by adding some new properties and individuals
 based on requirements from the LD4LT community group\footnote{\url{https://www.w3.org/community/ld4lt/wiki/Metashare\_vocabulary\_for\_licenses}}.
-
-META-SHARE limits fuzziness in the terms and conditions of use of LRs by
-providing a range of recommended standard licenses organized on the following axes: open licenses are the preferred option (Creative Commons licenses for data resources and Free Open Source Software for tools and
-services), followed by two sets of model (standard) licenses built in response
-to LR providers' requests (META-SHARE Commons and NoRedistribution licenses);
-custom and proprietary licenses are also allowed for legacy
-resources that cannot be licensed otherwise. 
-Further, the generic \textit{conditions-of-use} values of the META-SHARE schema have been exploited for
-creating RDF codes for non-standard licenses: common terms and conditions (e.g. attribution) are mapped to ODRL
+%META-SHARE limits fuzziness in the terms and conditions of use of LRs by
+%providing a range of recommended standard licenses organized on the following axes: open licenses are the preferred option (Creative Commons licenses %for data resources and Free Open Source Software for tools and
+%services), followed by two sets of model (standard) licenses built in response
+%to LR providers' requests (META-SHARE Commons and NoRedistribution licenses);
+%custom and proprietary licenses are also allowed for legacy
+%resources that cannot be licensed otherwise. 
+In particular, the generic \textit{conditions-of-use} values of the META-SHARE schema have been exploited for
+creating RDF codes for non-standard licenses and are mapped to ODRL
 actions (e.g. the duty to attribute), and included in an RDF
-document. Extension with more variable aspects of licenses can be added on top. In this way, some of the variable
-elements are detached and more easy editable. 
-
-
+document, as shown in figure \ref{fig:license-example}.
+%Extension with more variable aspects of licenses can be added on top. In this way, some of the variable
+%elements are detached and more easy editable. 
 This module has been published both as independent module\footnote{\url{http://purl.org/NET/ms-rights}} 
 and as part of the META-SHARE ontology. 
-An example on how language resources can be licensed is shown by the RDF document below: a resource is offered under one of the META-SHARE recommended licenses: the Meta-Share Commercial-NoRedistribution-ForAFee license. This is a generic license template published online, whose precise fields (parties, specific price) are in blank. This license offers a resource for a free and forbids its redistribution.
+%An example on how language resources can be licensed is shown by the RDF document below: a resource is offered under one of the META-SHARE recommended licenses: the Meta-Share Commercial-NoRedistribution-ForAFee license. This is a generic license template published online, whose precise fields (parties, specific price) are in blank. This license offers a resource for a free and forbids its redistribution.
 
-\begin{lstlisting}
-:resource a dcat:Distribution ;
+\begin{figure}
+\begin{verbatim}
+
+<#distributionInfo> a ms:DistributionInfo , dcat:Distribution ;
   dct:license <http://purl.org/NET/rdflicense/ms-c-nored-ff> ;
-  gr:hasPriceSpecification [ 
-    gr:hasCurrencyValue "400"^^xsd:float; 
-    gr:hasCurrency "USD"^^xsd:string ].
-    ] .
-\end{lstlisting}
+  dcat:accessURL <http://catalog.elra...> .
+\end{verbatim}
+\caption{An example of the modelling of licenses in a record\label{fig:license-example}}
+\end{figure}
 
-A Dublin Core license property links the resource with the license, and the price -whose precise number is not specific in the generic license online- is given using the GoodRelations\footnote{\url{http://www.heppnetz.de/projects/goodrelations/}} vocabulary. The RDF version of this generic license can also be found online, in a structure that permits some degree of reasoning on the licensing terms.
+%A Dublin Core license property links the resource with the license, and the price -whose precise number is not specific in the generic license online- is given using the GoodRelations\footnote{\url{http://www.heppnetz.de/projects/goodrelations/}} vocabulary. The RDF version of this generic license can also be found online, in a structure that permits some degree of reasoning on the licensing terms. 
 
 %These changes included the selection of classes and properties from other existing vocabularies (specifically from ODRL, Dublin Core, Creative Commons REL\footnote{\url{http://creativecommons.org/ns}} and SKOS) as well as the definition of new ones.
 
