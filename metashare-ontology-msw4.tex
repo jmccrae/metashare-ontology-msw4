@@ -38,7 +38,7 @@ University Pompeu Fabra, Barcelona, Spain \\
     META-SHARE is an infrastructure for sharing Language Resources (LRs) where significant effort has been made into
     providing carefully curated metadata about LRs. However, in the face of the flood of data that is used in computational
     linguistics, a manual approach cannot suffice. We present the development of
-    the META-SHARE ontology, which transforms the metadata schema used by META-SHARE into an open world ontology that can better handle the diversity of
+    the META-SHARE ontology, which transforms the metadata schema used by META-SHARE into ontology in the Web Ontology Language (OWL) that can better handle the diversity of
     metadata found in legacy and crowd-sourced resources. We show how this model can interface with other more general
     purpose vocabularies for online datasets and licensing, and apply this model
     to the CLARIN VLO, a large source of legacy metadata about LRs. Furthermore,
@@ -60,7 +60,7 @@ developed a rich metadata schema that allows aspects of LRs accounting for their
 whole lifecycle from their production to their usage to be described. The schema
 has been implemented as an XML Schema Definition (XSD) \footnote{\url{https://github.com/metashare/META-SHARE/tree/master/misc/schema/v3.0}} and descriptions of specific LRs are available as XML documents.
 
-Yet, META-SHARE is not the only source for discovering LRs and their descriptions; other sources include the catalogs of agencies dedicated to LRs promotion and distribution, such as ELRA\footnote{\url{http://www.elra.info/en}} and LDC\footnote{\url{https://www.ldc.upenn.edu/}}, other infrastructures such as the CLARIN Virtual Language Observatory (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data}, 
+Yet, META-SHARE is not the only source for discovering LRs and their descriptions; other sources include the catalogs of agencies dedicated to the promotion and distribution of LRs, such as ELRA\footnote{\url{http://www.elra.info/en}} and LDC\footnote{\url{https://www.ldc.upenn.edu/}}, other infrastructures such as the CLARIN Virtual Language Observatory (VLO)\footnote{\url{http://catalog.clarin.eu/vlo/?1}}~\cite{broeder2010data}, 
 the Language Grid\footnote{\url{http://langrid.org/en/index.html}} and Alveo\footnote{\url{http://alveo.edu.au}}, the Open Language Archives Community (OLAC)\footnote{\url{http://www.language-archives.org}}, 
 catalogs with crowd-sourced metadata, such as the LREMap\footnote{\url{http://www.resourcebook.eu/searchll.php}}~\cite{calzolari2012lre}, and, more recently, repositories coming from various communities (e.g. OpenAire\footnote{\url{https://www.openaire.eu/}}, EUDAT\footnote{\url{http://eudat.eu}} etc.). 
 %\footnote{Other initiatives aiming to collect and publish information on LRs include Datahub (\url{http://datahub.io/}) which targets datasets published as linked data and the DiRT Directory (\url{http://dirtdirectory.org/}) andTERESAH %!!!!! This URL is obviously not stable, we should update it for the final version!!!!
@@ -111,11 +111,11 @@ catalogs and repositories for their presentation (e.g. those used by ELRA and
 the LDC) and communities describing them (e.g. TEI~\cite{ide1995text} or
 CES~\cite{ide1998corpus}). The most widely used schema for the exchange of LRs is the one  suggested
 by the Open Language Archives Community~\cite[OLAC]{bird2001olac}, which builds on
-the Dublin Core metadata and has been criticized as too reductionistic. %~\cite{who} 
+the Dublin Core metadata and has been criticized as being too reductionistic. %~\cite{who} 
 %Differences between the schemas lie in the range of features included (e.g. size, technical details, classification etc.), the labels used for the features (e.g. rights, license, policy, terms of use etc. to denote the terms of use for an LR) and the datatypes for the features (e.g. values taken from a closed vocabulary or input as free text). 
 Differences between the schemas lie in the range of features used and their labels and datatypes.
 
-An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR) ~\cite{kemps2008isocat}, intended as a registry where metadata providers could register their concepts (Data Categories) and link them to those of other providers. A subset thereof were selected by metadata experts as the core elements for the description of LRs (``Athens Core''). The Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN extends this principle of a common registry to include ``components'' and ``profiles'': ``components'' consist of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
+An important effort to harmonize metadata has been the ISO Data Category Registry (ISOcat DCR)~\cite{kemps2008isocat}, intended as a registry where metadata providers can register their concepts (Data Categories) and link them to those of other providers. A subset thereof was selected by metadata experts as the core elements for the description of LRs (``Athens Core''). The Component Metadata Infrastructure~\cite{broeder2012cmdi} proposed by CLARIN extends this principle of a common registry to include ``components'' and ``profiles'': ``components'' consist of semantically close elements to be shared among different communities when producing ``profiles'' for specific LR types.
 %; however, this has not been achieved (cf. \ref{sec:harmonization}) and the VLO resorts to ISOcat links for aggregating similar resources. 
 However, as  we observe in section \ref{sec:harmonization}, this has in practice
 merely resulted in each contributing institute using its own scheme, with very
@@ -157,7 +157,7 @@ The META-SHARE schema proposes a set of elements to encode specific descriptive
 features of each of these entities and relations holding between them, taking as
 a starting point the LR. Following the CMDI approach, these elements are grouped
 together into ``components''. The core of the schema is the {\tt resourceInfo}
-component (Figure \ref{fig:resource}), which subsumes 
+component (Figure \ref{fig:resource}), which subsumes: 
 \begin{itemize}
 \item administrative components relevant to all LRs, e.g. {\tt
     identificationInfo} (name, description and identifiers), {\tt distributionInfo} (licensing and intellectual property rights information), {\tt usageInfo} (information about the intended and actual use of the LR).
@@ -252,7 +252,7 @@ ontology.\label{fig:example-dcat}}
 \label{sec:dcat}
 The META-SHARE model can be considered broadly similar to DCAT in that there are
 classes that are nearly an exact match to the ones in DCAT for three out of four
-classes. DCAT's {\tt dataset} corresponds nearly exactly to the {\tt resourceInfo} tag and similarly, {\tt distributions} are similar to {\tt distributionInfo} 
+classes. DCAT's {\tt dataset} corresponds nearly exactly to the {\tt resourceInfo} tag and, similarly, {\tt distributions} are similar to {\tt distributionInfo} 
 classes and {\tt catalogRecord} is similar to {\tt metadataInfo}. Thus, we
 introduced \emph{equivalent class} relations between these elements. The
 fourth main class, {\tt catalog} covers a level not modelled by META-SHARE.
@@ -272,7 +272,7 @@ Similarly, it is also the case that some Dublin Core properties are not directly
 specified in the META-SHARE model, but can be inferred from related properties,
 e.g., Dublin Core's `contributor' follows (by means of a property chain) from people indicated as `annotators',
 `evaluators', `recorders' or `validators'. Furthermore, several DCAT specific-properties, such as `download URL', are nearly
-exactly equivalent to those in Metashare but occur in places that do not fit the
+exactly equivalent to those in META-SHARE but occur in places that do not fit the
 domain and range of the properties. In this particular case, it was a simple fix
 to move the property to the enclosing {\tt DistributionInfo} class.
 Inevitably, several properties from DCAT did not have equivalences in
@@ -289,10 +289,10 @@ publications.
 A specific area where we made a significant effort to improve the modelling was
 in the licensing information in order to allow the formulation of a clear and
 concise rights information of the LRs. 
-Some languages already exist for this purpose, and among them, ODRL 2.1 (Open Digital Rights Language) was
-chosen and extended, which is a policy and rights
+Some languages already exist for this purpose and, among them, ODRL 2.1 (Open Digital Rights Language) was
+chosen and extended. ODRL is a policy and rights
 expression language specified by the W3C ODRL Community
-Group\footnote{\url{https://www.w3.org/community/odrl/}} which defines a model
+Group\footnote{\url{https://www.w3.org/community/odrl/}}, which defines a model
 for representing permissions, prohibitions and duties.
 The most common licenses (for software, data or general works) have been already
 expressed in ODRL in the RDF License dataset~\cite{rdflicense} and can be pointed to when an LR is licensed with any of these.
@@ -311,7 +311,7 @@ based on requirements from the LD4LT community group\footnote{\url{https://www.w
 In particular, the generic \textit{conditions-of-use} values of the META-SHARE schema have been exploited for
 creating RDF codes for non-standard licenses and are mapped to ODRL
 actions (e.g. the duty to attribute), and included in an RDF
-document, as shown in figure \ref{fig:license-example}.
+document, as shown in Figure \ref{fig:license-example}.
 %Extension with more variable aspects of licenses can be added on top. In this way, some of the variable
 %elements are detached and more easy editable. 
 This module has been published both as independent module\footnote{\url{http://purl.org/NET/ms-rights}} 
@@ -380,13 +380,13 @@ Infrastructure~\cite[CMDI]{broeder2012cmdi}. These metadata schemes are
 extremely diverse as shown in Table \ref{tab:clarin-types}.
 We will focus on the
 top five of these types for which we have created corresponding mappings. Two of these schemes are only Dublin Core properties and so do not have
-specific language resource metadata. The most frequent tag 'Song' tag is used to describe records of a 
+specific language resource metadata. The most frequent tag 'Song' is used to describe records of a 
 database consisting of musical recordings. While many of the properties used by this tag (e.g., `number of
 stanzas') have no correspondence in Dublin Core, they can be described with respect to existing elements of the META-SHARE Ontology.
 %through properties to describe 
 %the technical format information (i.e., `audio
 %encoding'). 
-The {\tt Session} tag is used to provide IMDI metadata~\cite{broeder2001imdi} and has a very loose correspondence to META-SHARE: For instance, there are no corresponding properties to describe the participants of a media recording.
+The {\tt Session} tag is used to provide IMDI metadata~\cite{broeder2001imdi}, and has a very loose correspondence to META-SHARE. For instance, there are no corresponding properties to describe the participants of a media recording.
 This highlights the advantage of
 taking an open world, ontological approach as opposed to a fixed schema, in that
 we can easily introduce new properties while still reusing the META-SHARE properties
@@ -394,7 +394,7 @@ where they are appropriate.
 The MODS metadata
 scheme~\cite{gartner2003mods} is in fact a general domain metadata framework.
 We found that 28 entities from META-SHARE
-corresponded to elements used in the MI `Sing' metadata, and 37 to the IMDI metadata,
+corresponded to elements used in the `Sing' metadata of the Meertens Institute collection, and 37 to the IMDI metadata,
 although there was only minor overlap with the MODS scheme (in particular 4
 entities used to describe language) as this scheme is not specific to language
 resources.
@@ -451,8 +451,7 @@ users to navigate throughout the datasets in a comprehensive way.
 Linghub is a portal designed to allow common querying of metadata from multiple
 highly heterogeneous repositories. Currently, it draws not only
 from META-SHARE, but also from the LRE-Map~\cite{calzolari2012lre}, the CLARIN
-VLO~\cite{broeder2010data} and DataHub and is regularly updated with new/changed information. The repository currently bases itself
-mostly on the DCAT and Dublin Core vocabularies, however these models do not capture
+VLO~\cite{broeder2010data} and DataHub, and is regularly updated with new/changed information. The repository is based on the DCAT and Dublin Core vocabularies. However, these models do not capture
 any specific linguistic information. For this reason, the ontology described in this paper is currently being integrated into the system to allow users to use META-SHARE as the
 basic vocabulary for querying linguistic information about language resources, and the mappings previously
 described have already been applied to data from LRE-Map and the CLARIN VLO.
@@ -464,7 +463,7 @@ The Linghub portal is thus a proof-of-concept for the level of
 harmonization that the use of a common ontology provides, as metadata
 originating from different repositories can be uniformly queried in Linghub in
 an integrated fashion. We adhere to an open architecture in which not only
-Linghub but other discovery services aggregate and index data could potentially
+Linghub but other discovery services that aggregate and index data could potentially
 be developed.
 
 
@@ -480,7 +479,7 @@ standards such as RDF so that data can be automatically crawled and analyzed.
 Secondly, it should be required that linguistic data published on the
 Web should ideally follow the same format (e.g. RDF) so that it can be
 easily integrated and data can be queried across datasets. This presupposes
-the agreement on best practices for data publication and formats and the
+the agreement on best practices for data publication and formats, and the
 Natural Language Processing Interchange Format
 (NIF)\cite{hellmann2013integrating} is an obvious candidate for that. Thirdly,
 harmonization should be extended to the description of NLP services so that NLP
@@ -497,7 +496,7 @@ non-centralized processing. %Service execution and composition should not requir
 %protocol (HTTP) and content negotiation, ideally being RESTful to keep APIs
 %simple and stateless. 
 We believe that the development of common vocabularies
-such as the one presented in paper should enable the emergence of a new paradigm supporting the discovery and exploitation of linguistic data and services across repositories.
+such as the one presented in this paper should enable the emergence of a new paradigm supporting the discovery and exploitation of linguistic data and services across repositories.
 
 
 \subsubsection*{Acknowledgments.} We are very grateful to the members of the W3C Linked Data for Language Technologies (LD4LT) for all the useful feedback received and for allowing this initiative to be developed as an activity of the group. This work is supported by the FP7 European project LIDER (610782), by the Spanish Ministry of Economy and Competitiveness (project TIN2013-46238-C4-2-R and a Juan de la Cierva grant), the Greek CLARIN Attiki project (MIS 441451) and the H2020 project CRACKER (645357).
